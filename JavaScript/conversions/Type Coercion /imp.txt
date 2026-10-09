@@ -1,0 +1,21 @@
+
+Key Takeaways
++ Operator:
+
+If either operand is a string, it performs string concatenation.
+
+If both operands are numbers, it performs numeric addition.
+
+-, *, / Operators:
+
+These operators always perform numeric operations.
+
+If operands are strings, they are implicitly coerced into numbers.
+
+String Concatenation:
+
+When using + with strings, always be cautious, as it can lead to unexpected results if you intended to perform numeric addition.
+
+Type Coercion:
+
+JavaScript implicitly converts types in certain contexts (e.g., strings to numbers for arithmetic operations other than +).

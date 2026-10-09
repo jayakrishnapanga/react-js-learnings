@@ -1,0 +1,30 @@
+.grid-container {
+  width: 400px;
+  height: 400px;
+  display: grid;
+  border: 2px solid black;
+  margin: 10px;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 80px 80px;
+  justify-content: center;
+}
+.child {
+  width: 50px;
+  height: 50px;
+  border: 2px solid black;
+  margin: 5px;
+  color: black;
+  text-align: center;
+}
+
+.child2 {
+  /* width: 50px;
+  height: 50px; */
+  border: 2px solid black;
+  margin: 5px;
+  color: black;
+  text-align: center;
+  /* grid-column: span 2;
+  grid-row: span 2; */
+  grid-area: 2/1/5/4;
+}

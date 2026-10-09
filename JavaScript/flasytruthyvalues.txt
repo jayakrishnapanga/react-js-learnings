@@ -1,0 +1,9 @@
+JavaScript has a concept of falsy and truthy values, which are coerced to false or true in boolean contexts.
+
+Falsy Values:
+
+false,0,"" (empty string),null,undefined,NaN
+
+Truthy Values:
+
+Everything else (e.g., "hello", 42, [], {}, etc.)

@@ -1,0 +1,134 @@
+Problem Statement
+You want to:
+Maintain multiple parts of state:
+count
+user
+Maybe theme, todos, etc.
+
+Allow subscribers to listen to specific parts only (e.g., subscribe to user updates only).
+
+✅ Step-by-Step Solution
+1. Shape Your State
+We'll combine multiple reducers to manage different parts of the state:
+
+const rootReducer = {
+  count: countReducer,
+  user: userReducer,
+};
+
+2. Create a Custom createStore() That Supports Multiple Reducers
+Let’s enhance your own Redux-like store:
+
+function combineReducers(reducers) {
+  return function rootReducer(state = {}, action) {
+    const nextState = {};
+    let hasChanged = false;
+
+    for (const key in reducers) {
+      const prevSlice = state[key];
+      const newSlice = reducers[key](prevSlice, action);
+      nextState[key] = newSlice;
+
+      if (prevSlice !== newSlice) {
+        hasChanged = true;
+      }
+    }
+
+    return hasChanged ? nextState : state;
+  };
+}
+Now you can pass in { count: countReducer, user: userReducer }
+
+3. Track Subscriptions Per Slice
+Here's how to track different listeners for each slice of state:
+
+function createStore(rootReducer) {
+  let state = rootReducer(undefined, { type: "@@INIT" });
+  const listeners = {}; // key: slice name, value: array of listeners
+
+  function subscribe(sliceName, listener) {
+    if (!listeners[sliceName]) listeners[sliceName] = [];
+    listeners[sliceName].push(listener);
+    return () => {
+      listeners[sliceName] = listeners[sliceName].filter((l) => l !== listener);
+    };
+  }
+
+  function dispatch(action) {
+    const prevState = state;
+    state = rootReducer(state, action);
+
+    // Notify only listeners of changed slices
+    for (const key in listeners) {
+      if (prevState[key] !== state[key]) {
+        listeners[key].forEach((fn) => fn(state[key]));
+      }
+    }
+  }
+
+  function getState() {
+    return state;
+  }
+
+  return { dispatch, getState, subscribe };
+}
+
+4. Reducers per Slice
+
+countReducer.js
+
+function countReducer(state = 0, action) {
+  switch (action.type) {
+    case "increment":
+      return state + 1;
+    case "decrement":
+      return state - 1;
+    default:
+      return state;
+  }
+}
+
+userReducer.js
+
+function userReducer(state = { name: "", loggedIn: false }, action) {
+  switch (action.type) {
+    case "login":
+      return { ...state, name: action.payload, loggedIn: true };
+    case "logout":
+      return { name: "", loggedIn: false };
+    default:
+      return state;
+  }
+}
+
+5. Using It in Code
+
+const store = createStore(
+  combineReducers({
+    count: countReducer,
+    user: userReducer,
+  })
+);
+
+// Subscribe only to `user` slice
+store.subscribe("user", (userState) => {
+  console.log("User updated:", userState);
+});
+
+// Subscribe only to `count` slice
+store.subscribe("count", (countState) => {
+  console.log("Count updated:", countState);
+});
+
+// Dispatch some actions
+store.dispatch({ type: "increment" });
+// Only count listener runs
+
+store.dispatch({ type: "login", payload: "Alice" });
+// Only user listener runs
+🎯 Why This Is Useful
+This setup:
+Keeps state modular and organized
+Avoids unnecessary re-renders or work
+Mimics combineReducers + useSelector from Redux Toolkit and React Redux
+

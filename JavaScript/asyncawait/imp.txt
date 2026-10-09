@@ -1,0 +1,8 @@
+✅ Tiny timeline: await + I/O
+
+1) You `await` → function paused → Promise returned
+2) libuv does I/O in thread pool
+3) libuv finishes → signals Event Loop
+4) Event Loop executes callback → V8 resolves Promise
+5) V8 puts `.then` / `await` continuation in microtask queue
+6) V8 runs microtasks → resumes `await`

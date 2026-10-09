@@ -1,0 +1,100 @@
+
+Hoisting is a mechanism in JavaScript where variable and function declarations
+are moved to the top of their containing scope during the compile phase. 
+This means that you can use a variable or a function before it has been declared.
+
+However, it's important to note that only the declarations are hoisted, not the initializations.
+ Let's go through some corner cases related to hoisting with examples:
+
+
+
+
+
+So, while let and const are hoisted in the sense that their declarations are moved to the top of their respective scopes,
+they are not initialized until the point in the code where they are declared. 
+This makes it a good practice to declare your variables at the beginning of their respective scopes to avoid any potential issues.
+
+
+What is Hoisting?
+In JavaScript, variables and function declarations are "hoisted" to the top of their scope during the compilation phase. 
+This means the declaration of variables and functions is processed before the code is executed, though their initialization happens later.
+
+
+
+import java.util.Stack;
+
+public class Robot {
+
+    public static int[] executeProgram(String program) {
+        Stack<Integer> countStack = new Stack<>();
+        Stack<Integer> xStack = new Stack<>();
+        Stack<Integer> yStack = new Stack<>();
+        
+        int x = 0, y = 0;
+        int count = 1;
+
+        for (char c : program.toCharArray()) {
+            if (Character.isDigit(c)) {
+                count = Character.getNumericValue(c);
+            } else if (c == '(') {
+                countStack.push(count);
+                xStack.push(x);
+                yStack.push(y);
+                count = 1;
+            } else if (c == ')') {
+                int loopCount = countStack.pop();
+                int prevX = xStack.pop();
+                int prevY = yStack.pop();
+                x = prevX + loopCount * (x - prevX);
+                y = prevY + loopCount * (y - prevY);
+            } else {
+                switch (c) {
+                    case 'N':
+                        y += count;
+                        break;
+                    case 'S':
+                        y -= count;
+                        break;
+                    case 'E':
+                        x += count;
+                        break;
+                    case 'W':
+                        x -= count;
+                        break;
+                }
+            }
+        }
+
+        return new int[]{x, y};
+    }
+
+    public static void main(String[] args) {
+        String[] programs = {
+            "3(N2(E)W)",
+            "2(3(NW)2(SE))",
+            "4(SW)3(NE)2(S2(EW))",
+            "2(2(3(NE)W)S)",
+            "3(2(NW)3(SEW))",
+            "4(N4(SW)E)",
+            "2(2(S2(ENW))3(SE))",
+            "3(2(ENW)3(2(SW)))",
+            "2(2(2(S3(N3(E)W))2(S3(N3(E)W))))",
+            "2(2(3(S2(NW)E))2(3(SEN)W))",
+            "2(2(2(2(N2(W)E))2(S2(NE))S))",
+            "3(2(2(NE)2(SW)2(NW))3(SE))",
+            "2(2(2(2(S3(EN)W))S2(3(NE))E))",
+            "4(2(3(S2(N2(W))E))3(SEN)W)",
+            "2(3(2(S2(N2(W)E))2(S2(NE))2(SW)))",
+            "3(2(2(2(S2(EN))N)2(2(SE))E)3(NW))",
+            "3(2(2(S2(EN))2(N2(2(SE)W))E)3(NW))",
+            "4(2(3(2(S2(N2(W))E))3(SEN)W)2(SW))",
+            "3(3(2(S2(EN))2(N2(2(SE)W))E)2(NW))",
+            "2(3(2(S2(EN))2(N2(2(SE)W))E)3(SW))"
+        };
+
+        for (String program : programs) {
+            int[] result = executeProgram(program);
+            System.out.println(result[0] + " " + result[1]);
+        }
+    }
+}

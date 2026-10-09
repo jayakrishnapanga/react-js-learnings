@@ -1,0 +1,17 @@
+.practice {
+  display: flex;
+  width: auto;
+  height: auto;
+  background-color: rgb(45, 149, 111);
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  row-gap: 10px;
+}
+.practice > div {
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: 200px;
+  height: 100px;
+  border: 2px solid black;
+}
+

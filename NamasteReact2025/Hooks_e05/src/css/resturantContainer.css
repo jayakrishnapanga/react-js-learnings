@@ -1,0 +1,24 @@
+
+.resturantContainer{
+display:flex;
+flex-wrap: wrap;
+margin-left:50px ;
+}
+
+.resturantImg {
+    width: 100%; /* Makes sure image fits the container */
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    border-radius: 10px; /* Optional for better UI */
+}
+
+.resturantcard {
+    width: 300px; /* Set a fixed width */
+    height: auto; /* Adjusts based on content */
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden; /* Prevents text from overflowing */
+    word-wrap: break-word; /* Ensures text stays within the box */
+}

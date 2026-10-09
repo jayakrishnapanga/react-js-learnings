@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #box {
+      position: absolute;
+      left: 0;
+      top: 50px;
+      width: 50px;
+      height: 50px;
+      background: blue;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+
+  <script>
+    const box = document.getElementById("box");
+    let start = null; // time when animation starts
+
+    function animate(timestamp) {
+      if (!start) start = timestamp;  // set start time
+      let progress = timestamp - start; // elapsed time
+
+      // Move box: progress/10 gives us pixels
+      box.style.left = Math.min(progress / 10, 500) + "px";
+
+      // Continue animation until box reaches 500px
+      if (progress < 5000) {
+        requestAnimationFrame(animate);
+      }
+    }
+
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+because of bundler and react virtual dom
+
+these are the things bundler can do 
+1.local server
+2.builds
+3.Consistent Hashing
+4.tree shaking
+5.differential builds
+6.HMR
+7.minification
+8.code splitting
+9.compression
+10.image optimization 
+11.convert jsx code into js code
+12.caching

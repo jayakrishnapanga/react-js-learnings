@@ -1,0 +1,7 @@
+Rule of thumb 📌
+
+When your recursive function is supposed to calculate something (like sum, product, min, max, etc.),
+👉 always return the result of the recursive call.
+
+If the recursion is just for printing or side effects (like printing numbers, traversing a tree, etc.),
+👉 you don’t need to return.

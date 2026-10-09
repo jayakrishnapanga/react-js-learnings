@@ -1,0 +1,28 @@
+
+
+Strict mode is highly recommended for modern JavaScript development as it helps write safer, more predictable, and optimized code.
+
+Summary of Function Behavior in Strict Mode:
+Feature	                             Non-Strict Mode Behavior	                    Strict Mode Behavior
+Hoisting	                   Function declarations fully hoisted	       Function declarations fully hoisted
+Block-Scoped Functions	       Hoisted to enclosing function/global scope  Block-scoped (not hoisted outside the block)
+Duplicate Parameters	       Allowed	                                   SyntaxError
+this in Functions	           Coerced to global object	                   undefined
+arguments Object	           Aliased to parameters, arguments.callee	   Not aliased, arguments.callee disabled
+Octal Literals	               Allowed	                                   SyntaxError
+Implicit Globals	           Allowed	                                   ReferenceError
+Deleting Variables	           Allowed	                                   SyntaxError
+Reserved Words	               Allowed as identifiers	                   SyntaxError
+
+
+
+Summary of Variable Behavior in Strict Mode
+Behavior	                     Non-Strict Mode 	           Strict Mode
+Undeclared Variables    	    Creates a global variable	Throws a ReferenceError
+Implicit Globals	            Allowed	                    Throws a ReferenceError
+Deleting Variables	            Silently fails	            Throws a SyntaxError
+Duplicate Variable Names	    Allowed	                    Throws a SyntaxError
+Reserved Words as Variables	    Allowed	                    Throws a SyntaxError
+Octal Literals	                Allowed	                    Throws a SyntaxError
+Read-Only Properties	        Silently fails	            Throws a TypeError
+

@@ -1,0 +1,6 @@
+Inline Elements
+Behavior: Stay in the same line & take only needed width.
+
+Examples: <span>, <a>, <strong>, <em>, <img>, <br>.
+
+CSS: Cannot set width/height (ignored). margin/padding only affect horizontally.

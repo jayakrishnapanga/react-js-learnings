@@ -1,0 +1,47 @@
+
+it will only automatically generates the actions and reducer function internally 
+
+import { createSlice } from "@reduxjs/toolkit";
+
+const counterSlice = createSlice({
+ name: "counter", // Name of the slice
+ initialState: { value: 0 }, // Initial state
+ reducers: {
+   increment: (state, action) => {
+     console.log("action recieved", action);
+     state.value += 1; // allowed because of Immer (mutable syntax)
+   },
+   decrement: (state, action) => {
+     console.log("action recieved", action);
+     state.value -= 1;
+   },
+   incrementByAmount: (state, action) => {
+     state.value += action.payload; // payload passed to action
+   },
+ },
+});
+
+
+
+
+
+That will be like this internally when we create the slice 
+
+
+function counterReducer(state = { value: 0 }, action) {
+  switch (action.type) {
+    case 'counter/increment':
+      state.value += 1;
+      break;
+    case 'counter/decrement':
+      state.value -= 1;
+      break;
+    case 'counter/incrementByAmount':
+      state.value += action.payload;
+      break;
+    default:
+      return state;
+  }
+}
+
+

@@ -1,0 +1,104 @@
+configureStore
+
+const store = configureStore({
+  reducer: { ... },        // required
+  middleware: [...],       // optional
+  devTools: true/false,    // optional
+  preloadedState: { ... }, // optional
+});
+
+
+
+reducer:
+Can be a single reducer function
+
+Or an object with multiple slice reducers (this is called a reducer map object)
+
+
+
+Redux Toolkit internally calls combineReducers() behind the scenes to combine:
+
+{
+  counter: counterReducer
+}
+
+into a single root reducer function.
+
+
+
+🔧 Where Does Initial State Come From in Redux?
+Redux sets up the initial state in one of two ways, depending on how you build your store:
+
+✅ 1. From the Reducer’s Default State
+If you define a reducer like this:
+
+function counterReducer(state = { value: 0 }, action) {
+  switch (action.type) {
+    case 'increment':
+      return { value: state.value + 1 };
+    default:
+      return state;
+  }
+}
+
+🟢 Redux will call this reducer at startup with:
+
+action = { type: "@@redux/INIT" }
+This triggers:
+state = counterReducer(undefined, { type: '@@redux/INIT' });
+✅ Because state is undefined, your reducer returns the default:
+{ value: 0 }
+That becomes your initial state.
+
+
+✅ 2. From preloadedState in configureStore
+You can override the reducer’s default by explicitly passing preloadedState:
+
+const store = configureStore({
+  reducer: counterReducer,
+  preloadedState: { value: 10 }, // overrides reducer default
+});
+Redux will initialize the store with preloadedState if you provide it.
+
+
+
+
+
+
+
+🔁 With combineReducers / slice reducers
+If you're using Redux Toolkit like this:
+
+const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+    user: userReducer,
+  },
+});
+Redux will call each slice reducer with undefined + the init action:
+
+counterReducer(undefined, { type: '@@redux/INIT' })
+userReducer(undefined, { type: '@@redux/INIT' })
+Each returns their respective initial state (typically defined via initialState in createSlice()).
+
+| Source                | Description                                          |
+| --------------------- | ---------------------------------------------------- |
+| Reducer default state | Set with `state = default` when state is `undefined` |
+| `preloadedState`      | Passed into `configureStore()` to override defaults  |
+| Redux internal call   | Dispatches `@@redux/INIT` to each reducer on startup |
+
+
+✅ In Redux Toolkit (createSlice)
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: { value: 0 }, // <--- THIS
+  reducers: {
+    increment(state) {
+      state.value += 1;
+    }
+  }
+});
+
+Redux Toolkit passes this initialState to the slice reducer automatically.
+

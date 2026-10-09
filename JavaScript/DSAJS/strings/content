@@ -1,0 +1,31 @@
+
+
+
+// strings in javascript are immutable 
+// we can't directly modify the string 
+// this is not correct way to reverse a string in javascript
+
+let str1="hello"
+let j=str1.length-1;
+for (let i=0;i<str1.length;i++){
+    let temp=str1.charAt(i);
+    str1.charAt(i)=str1.charAt(j);
+    str1.charAt(j)=temp;
+    j--;
+}
+console.log(str1); 
+
+
+str1.charAt(i)=str1.charAt(j);
+
+
+// ReferenceError: Invalid left-hand side in assignment
+// at Object.<anonymous> (/Users/pangajayakrishna/Learning2024/JavaScript/datastructuresinJS/strings/reversestring.js:16:10)
+// at Module._compile (node:internal/modules/cjs/loader:1734:14)
+// at Object..js (node:internal/modules/cjs/loader:1899:10)
+// at Module.load (node:internal/modules/cjs/loader:1469:32)
+// at Function._load (node:internal/modules/cjs/loader:1286:12)
+// at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+// at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+// at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:151:5)
+// at node:internal/main/run_main_module:33:47

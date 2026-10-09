@@ -1,0 +1,27 @@
+
+// pop() it will remove  element from end of the array 
+let person={
+    name:"krishna"
+}
+let arr=[1,2,34,5,person]
+
+console.log(arr)
+console.log(arr.pop())
+console.log(arr)
+
+// 1. How Arrays Work in Memory
+// JavaScript arrays are indexed collections of elements, and their elements are stored sequentially in memory. When modifying an array, the operations can either be end-based (affecting the last element) or start-based (affecting the first element and shifting everything else).
+
+// 2. Performance of push() and pop()
+// push(value) → Adds an element to the end of the array.
+// pop() → Removes an element from the end of the array.
+// Since these operations only modify the last element without affecting the other elements, they have a time complexity of O(1) (constant time).
+// No shifting or reindexing of elements is required, making them very efficient.
+// 3. Performance of shift() and unshift()
+// shift() → Removes the first element and shifts all the remaining elements left.
+// unshift(value) → Adds an element to the start and shifts all existing elements right.
+// Since every element has to be re-indexed (moved one position forward or backward), these operations have a time complexity of O(n) (linear time) in the worst case.
+// The larger the array, the more expensive the operation.
+// 4. Real-World Impact
+// If you’re working with large arrays, frequent use of shift() and unshift() can significantly slow down performance, while push() and pop() will remain fast no matter the array size.
+

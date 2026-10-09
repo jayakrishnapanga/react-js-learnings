@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Event Propagation</title>
+</head>
+<body>
+  <div id="parent" style="padding:30px; background:lightblue;">
+    Parent Div
+    <button id="child" style="padding:10px; margin-top:10px;">Child Button</button>
+  </div>
+
+  <script>
+    // Parent listener
+    document.getElementById("parent").addEventListener(
+      "click",
+      () => {
+        console.log("Parent DIV clicked (bubbling phase)");
+      }
+    );
+
+    // Child listener
+    document.getElementById("child").addEventListener(
+      "click",
+      () => {
+        console.log("Child BUTTON clicked");
+      }
+    );
+
+    // Capturing example
+    document.body.addEventListener(
+      "click",
+      () => {
+        console.log("BODY clicked (capturing phase)");
+      },
+      true // 👈 enables capturing
+    );
+  </script>
+</body>
+</html>

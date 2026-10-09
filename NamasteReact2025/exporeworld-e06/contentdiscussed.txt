@@ -1,0 +1,19 @@
+microservices
+useeffct
+when it is called
+dependency array
+shimmer ui (recommended to show shimmerui instead of loader or spinner)
+it will make fake impression here something is coming (dummy cards like youtube)
+optional chaining
+conditional rendering 
+
+why we have to use useState local variables only 
+why javascript varaibles not used 
+**************
+in a compoenet in parent div, have 4 childs if we update the value in the 4th child div 
+does react render only the 4th div or whole the component
+
+const[user,setUser]=useState("")
+here you are trying to update the data can you please how can you change const it is not possible 
+can you explain what is happening internal 
+

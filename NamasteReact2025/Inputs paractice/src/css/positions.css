@@ -1,0 +1,102 @@
+/* body {
+  height: 2000px; 
+  margin: 0;
+}
+
+.parent {
+  position: relative;
+  background: lightblue;
+  width: 300px;
+  height: 200px;
+  overflow-y: auto; 
+}
+
+.child {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: tomato;
+  padding: 10px;
+  display: inline-block;
+} */
+
+body {
+  height: 2000px;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.page {
+  padding: 20px;
+}
+
+.box-container {
+  margin-bottom: 60px;
+}
+
+.parent {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  background: lightblue;
+  border: 2px solid #333;
+  margin-top: 10px;
+}
+
+.child {
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+/* 1. STATIC */
+.static-child {
+  position: static;
+  background: gray;
+  top: 20px; /* ignored */
+}
+
+/* 2. RELATIVE */
+.relative-child {
+  position: relative;
+  top: 20px;
+  left: 20px;
+  background: green;
+}
+
+/* 3. ABSOLUTE */
+.absolute-parent {
+  position: relative; /* anchor */
+}
+
+.absolute-child {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: tomato;
+}
+
+/* 4. FIXED */
+.fixed-child {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: purple;
+}
+
+/* 5. STICKY */
+.tall {
+  height: 400px;
+}
+
+.sticky-parent {
+  height: 200px;
+  overflow-y: auto;
+  border: 2px dashed #333;
+}
+
+.sticky-child {
+  position: sticky;
+  top: 0;
+  background: orange;
+}

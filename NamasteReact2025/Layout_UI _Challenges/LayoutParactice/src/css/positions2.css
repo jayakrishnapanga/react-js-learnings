@@ -1,0 +1,90 @@
+.page {
+  padding: 40px;
+  font-family: sans-serif;
+}
+
+.section {
+  margin-bottom: 60px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ================= TOOLTIP ================= */
+
+.tooltip-wrapper {
+  position: relative; /* anchor */
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.tooltip-wrapper:hover .tooltip {
+  opacity: 1;
+}
+
+/* ================= DROPDOWN ================= */
+
+.dropdown {
+  position: relative; /* anchor */
+  display: inline-block;
+}
+
+.menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 8px 0;
+  list-style: none;
+  width: 140px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.menu li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.menu li:hover {
+  background: #f1f5f9;
+}
+
+/* ================= MODAL ================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background: rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-items: center;
+}
+
+.modal {
+  background: white;
+  padding: 24px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}

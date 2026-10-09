@@ -1,0 +1,103 @@
+What You Need to Learn About React Context API
+To effectively use the Context API in React, here are the key concepts and techniques you should learn:
+
+Core Concepts
+createContext()
+
+How to create a new context
+
+Understanding the Provider and Consumer components it returns
+
+Context.Provider
+
+How to wrap components with the Provider
+
+The value prop and how it works
+
+useContext() Hook
+
+How to consume context in functional components
+
+Performance considerations
+
+Implementation Patterns
+Basic Context Usage
+
+Creating and consuming simple contexts
+
+Passing primitive values (strings, numbers, booleans)
+
+Complex State Management
+
+Passing objects and arrays through context
+
+Combining context with useReducer for more complex state
+
+Multiple Contexts
+
+Using several contexts in one application
+
+Nesting providers and understanding update behavior
+
+Advanced Topics
+Performance Optimization
+
+Preventing unnecessary re-renders
+
+Using memoization with React.memo and useMemo
+
+Splitting contexts for better performance
+
+Custom Context Hooks
+
+Creating custom hooks for your contexts
+
+Error handling for missing providers
+
+Type Safety (with TypeScript)
+
+Typing your contexts
+
+Creating type-safe context hooks
+
+Practical Applications
+Common Use Cases
+
+Theme switching (light/dark mode)
+
+User authentication state
+
+Localization/internationalization
+
+Global application settings
+
+Context vs Other Solutions
+
+When to use Context vs Redux/Zustand
+
+When to use Context vs prop drilling
+
+When to use Context vs component composition
+
+Best Practices
+Context Structure Patterns
+
+Separating state and dispatch contexts
+
+Creating context provider components
+
+Organizing multiple contexts in a large app
+
+Testing Contexts
+
+Testing components that use context
+
+Mocking contexts in tests
+
+Debugging Context
+
+Common pitfalls and how to avoid them
+
+Tools for inspecting context values
+
+Would you like me to elaborate on any specific area of the Context API?

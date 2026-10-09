@@ -1,0 +1,32 @@
+.flexdemo {
+  display: flex;
+  background-color: #7fffd4;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  /* overflow: scroll; */
+  height: auto;
+  align-content: center;
+  justify-content: center;
+}
+
+.childdivs {
+  display: flex;
+  flex-shrink: 0;
+  border: 2px solid gray;
+  margin: 5px;
+  width: 200px;
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow-y: auto;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* flex-direction: row;
+    flex-direction: column;
+    flex-direction: column-reverse;
+    flex-direction: row-reverse; */
+/* width: 200px; */
+/* flex-wrap: wrap; */

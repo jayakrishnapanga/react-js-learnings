@@ -1,0 +1,45 @@
+In JavaScript, functions are objects — specifically, Function objects.
+So when you write:
+
+
+function abc() { ... }
+JavaScript creates a function object named abc.
+By default, this function object has some built-in properties like name and length.
+But you can freely add new properties to it at any time, because it’s just an object.
+
+✅ What happens when you do:
+
+abc.xyz = 90;
+If xyz doesn’t exist, JavaScript will create it on the fly.
+
+If xyz does exist, it will update its value.
+
+So when you run abc.xyz = 90; for the first time, abc didn’t already have a property xyz.
+JavaScript does this behind the scenes:
+
+If the property doesn’t exist, create it and assign the value.
+
+🧩 Why didn’t you need to define it in advance?
+Because in JavaScript, object properties are dynamic.
+For example:
+
+
+const obj = {};
+obj.foo = 42;    // foo property created dynamically
+The same is true for functions because functions are objects:
+
+
+function myFunc() {}
+myFunc.bar = 'hello';   // bar property created dynamically
+✅ What you did is valid:
+You didn’t declare abc.xyz separately.
+You just assigned to it, so JS automatically creates the property.
+
+⚡️ Summary
+abc is a function → functions are objects.
+
+Objects can have properties added dynamically.
+
+So abc.xyz = 90 creates the property xyz on abc if it didn’t exist.
+
+abc.xyz = 80 just updates it.

@@ -1,0 +1,15 @@
+<ul id="menu">
+  <li data-action="home">Home</li>
+  <li data-action="about">About</li>
+  <li data-action="contact">Contact</li>
+</ul>
+
+<script>
+  // Event delegation on parent <ul>
+  document.getElementById("menu").addEventListener("click", (event) => {
+    console.log("event", event);
+    if (event.target.tagName === "LI") {
+      console.log("You clicked:", event.target.dataset.action);
+    }
+  });
+</script>

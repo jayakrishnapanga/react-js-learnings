@@ -1,0 +1,7 @@
+button {
+    width: 200px;
+    padding: 10px;
+    border: 2px solid blue;
+    margin: 20px;
+    box-sizing: border-box;
+  }

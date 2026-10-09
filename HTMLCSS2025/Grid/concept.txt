@@ -1,0 +1,27 @@
+✅ 1. Grid Basics
+display: grid
+grid-template-columns and grid-template-rows
+gap, row-gap, column-gap
+
+✅ 2. Grid Placement
+grid-column, grid-row
+grid-area
+grid-template-areas
+
+✅ 3. Responsive Techniques
+repeat(), auto-fit, auto-fill
+minmax()
+Fractional units (fr)
+Media queries with grid
+
+✅ 4. Alignment & Justification
+justify-items, align-items
+justify-content, align-content
+place-items, place-content
+
+✅ 5. Advanced Topics
+Implicit vs. explicit grids
+Named lines
+Subgrid (support growing)
+Nesting grids
+

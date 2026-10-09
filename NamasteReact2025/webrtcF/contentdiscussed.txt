@@ -1,0 +1,29 @@
+React maintains the state in memory associated with the component instance
+
+When multiple dispatch calls happen in the same event loop:
+
+React batches them together
+Processes them in the order they were dispatched
+Only triggers one re-render at the end
+
+
+
+
+
+function useReducer(reducer, initialState, initializer) {
+  // Handle lazy initialization
+  const initializedState = typeof initializer === 'function' 
+    ? initializer(initialState) 
+    : initialState;
+
+  // Use useState internally to trigger re-renders
+  const [state, setState] = React.useState(initializedState);
+  
+  // Create stable dispatch function with useCallback
+  const dispatch = React.useCallback((action) => {
+    setState(prevState => reducer(prevState, action));
+    return action; // For middleware compatibility
+  }, [reducer]);
+
+  return [state, dispatch];
+}

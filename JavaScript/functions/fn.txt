@@ -1,0 +1,57 @@
+Function statement:---
+A function declaration (or function statement) is a way to define a named function using the function keyword
+function functionName(parameters) {
+  // Function body
+  return value; // Optional
+}
+
+Function declarations must have a name. Anonymous functions are not allowed in this syntax.
+ex1
+function() { // SyntaxError: Function statements require a function name
+  console.log("This will throw an error");
+}
+---------------------------------------
+Function Expression:----
+if you assign an anonymous function to a function is called the function expression 
+
+const demo=function(){
+
+}
+Named Function Expression:--
+const demo=function xyz(){
+
+}
+
+----------
+FirstClass functions or citizens:----
+the ability of using functions as 1,2,3,4cpoints known as First class functions
+functions can be:
+1.Assigned to variables
+2.Passed as arguments to other functions
+3.Returned from other functions
+4.Stored in data structures (like arrays or objects)
+
+First-class functions are the backbone of functional programming concepts like higher-order functions, closures, and currying.
+
+
+
+what is Higherorderfunction?
+A function which can take function as argument or it will return a function is called Higherorderfunction
+
+
+Function parameters v/s Function arguments?
+
+functions sum(pram1,param2){
+    return param1+param2
+}
+
+
+sum(argument1,argument2)
+
+
+function demo(){
+  function x(){
+
+  }
+  return x
+}

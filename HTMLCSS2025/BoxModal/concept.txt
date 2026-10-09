@@ -1,0 +1,79 @@
+
+
+*****CSS Box Model is applied to every HTML element by default!
+
+
+Absolutely! The Box Model is a core concept in CSS that describes how elements are displayed and spaced on a web page. 
+Think of every HTML element as a box made up of different layers
+
++------------------------------+
+|          Margin              |
+|  +------------------------+  |
+|  |        Border          |  |
+|  |  +------------------+  |  |
+|  |  |    Padding        | |  |
+|  |  |  +------------+   | |  |
+|  |  |  |  Content    |  | |  |
+|  |  |  +------------+   | |  |
+|  |  +------------------+  |  |
+|  +------------------------+  |
++------------------------------+
+
+
+🔸 1. Content
+This is where your actual text or images go.
+width: 200px;
+height: 100px;
+
+🔸 2. Padding
+Space between the content and the border.
+Increases the clickable area
+Pushes content inward
+padding: 20px;
+
+🔸 3. Border
+The visible line around the element.
+border: 2px solid black;
+
+🔸 4. Margin
+Space outside the border, pushing the element away from others.
+margin: 15px;
+
+
+
+box-sizing
+By default, when you set width and height, only the content is sized.
+
+If you want padding and border included in the size, use:
+
+box-sizing: border-box;
+box-sizing: content-box;
+
+
+
+ByDefault in CSS is:
+
+box-sizing: content-box;
+Which means:
+width and height only include the content
+padding and border get added outside that size
+
+
+box-sizing: border-box;
+Which means:
+width and height + padding + margin incude in the content
+padding and border get added inside that size
+
+Use box-sizing: border-box in real projects.
+
+* {
+  box-sizing: border-box;
+}
+
+
+Here’s why border-box is better in most cases:
+Feature	                      content-box (default)	                                       border-box (recommended)
+Layout control	             ❌ Harder — width grows with padding	    ✅ Easier — fixed total size
+Predictability	             ❌ Padding changes size	                  ✅ More predictable
+Responsive design	           ❌ Can break layouts	                    ✅ Makes layout stable
+Real-world usage	           Rare	                                     ✅ Commonly used by pros

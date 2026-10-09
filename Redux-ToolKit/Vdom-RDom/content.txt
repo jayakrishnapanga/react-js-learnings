@@ -1,0 +1,96 @@
+
+🗂️ 1️⃣ HTML download → DOM creation
+The browser gets the HTML file from the server.
+
+The HTML parser reads the file top to bottom, turning it into the DOM tree.
+
+The DOM is stored in memory as a big JavaScript object — you can access it via the global document object.
+
+Example:
+<body>
+  <h1>Hello World</h1>
+  <p>Welcome!</p>
+</body>
+
+In JS:
+
+console.log(document.body); // <body>...</body>
+console.log(document.body.children); // [h1, p]
+So: the DOM is a live object model.
+
+🎨 2️⃣ DOM → Render Tree → Pixels
+Here’s the key part: the DOM itself doesn’t draw pixels — it’s just the structure.
+
+👉 The browser engine (like Blink in Chrome, WebKit in Safari) uses:
+DOM tree: what elements exist
+CSSOM tree: how they should look (styles)
+Combines them into the Render Tree.
+
+🔗 How they’re linked:
+
+HTML → DOM (structure)
+CSS → CSSOM (styles)
+DOM + CSSOM → Render Tree (what to paint)
+Render Tree → Layout → Paint → Composite → Screen pixels
+
+
+
+✅ How does the link work?
+The browser continuously listens for changes to the document object.
+
+If you change the DOM via JavaScript:
+document.querySelector('h1').textContent = "Hi!";
+the browser invalidates the Render Tree.
+
+Then the rendering engine updates the layout, recalculates styles, and repaints the affected parts on the screen.
+
+document → DOM tree: structure in memory.
+Browser Rendering Engine → uses that to build the visual representation.
+Any change in the DOM or CSSOM triggers a re-render (layout, paint, composite).
+
+
+🗂️ Visual Summary
+
+HTML → DOM → JS `document` (live object) 
+         ↓
+ CSS → CSSOM 
+         ↓
+DOM + CSSOM → Render Tree → Layout → Paint → Composite → GPU → Screen
+✅ So the document object is the JS API to modify the DOM, and the rendering pipeline watches for changes to turn that structure into visible pixels.
+
+
+Diagram: From HTML → DOM → Render Tree → Pixels
+HTML File (index.html)
+      │
+      ▼
+  [ HTML Parser ]
+      │
+      ▼
+ ┌────────────┐
+ │  DOM Tree  │   ←  (stored in JS as `document`)
+ └────────────┘
+      │
++───────────────+
+│ CSS Files     │
+│ Inline Styles │
+│ <style> tags  │
++───────────────+
+      │
+      ▼
+ ┌─────────────┐
+ │  CSSOM Tree │
+ └─────────────┘
+      │
+      ▼
+ ┌───────────────────────────┐
+ │      Render Tree          │  ← (DOM + CSSOM combined)
+ └───────────────────────────┘
+      │
+      ▼
+ Layout & Paint (Browser Engine)
+      │
+      ▼
+ GPU Compositing
+      │
+      ▼
+  Pixels on your screen!

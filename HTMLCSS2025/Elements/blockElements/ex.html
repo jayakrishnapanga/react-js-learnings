@@ -1,0 +1,90 @@
+<!-- <div>This is a block-level element.</div>
+<p>This is a paragraph (also block-level).</p>
+<ol>
+  <li>List item 1 (block inside block)</li>
+  <li>List item 2</li>
+</ol>
+
+<ul>
+  <li>List item 1 (block inside block)</li>
+  <li>List item 2</li>
+</ul> -->
+
+<div
+  style="
+    width: 200px;
+    height: 200px;
+    border: 2px solid black;
+    text-align: center;
+  "
+>
+  hellooo
+</div>
+
+<ul>
+  <li
+    style="
+      width: 200px;
+      height: 200px;
+      border: 2px solid black;
+      text-align: center;
+    "
+  >
+    List item 1
+  </li>
+</ul>
+
+<!-- 
+text-align: center only centers text horizontally, not vertically.
+So in your code:
+<div style="text-align: center;">hellooo</div>
+<li style="text-align: center;">List item 1</li>
+
+The text is centered left → right
+
+
+But it stays at the top because vertical alignment is not controlled
+ -->
+
+<!-- Why text appears on the top?
+A div and li are block elements, and since you gave height (200px), the text occupies only one line at the top inside that block. There is no CSS telling it to move to the middle vertically.
+
+How to center text vertically and horizontally
+Use flexbox:
+<div
+  style="
+    width: 200px;
+    height: 200px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  "
+>
+  hellooo
+</div> -->
+
+<!-- 
+And for <li>:
+<li
+  style="
+    width: 200px;
+    height: 200px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  "
+>
+  List item 1
+</li> -->
+
+<!-- What each property does
+CSS
+Meaning
+display: flex
+Activate flexbox
+justify-content: center
+Horizontal centering
+align-items: center
+Vertical centering -->

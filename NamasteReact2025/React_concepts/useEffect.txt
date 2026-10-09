@@ -1,0 +1,22 @@
+useEffect is a React Hook that lets you synchronize a component with external systems or perform side effects after the component renders.
+when to use?
+
+When to Use useEffect
+You'll use useEffect for:
+Data fetching
+Setting up subscriptions
+Manually changing the DOM
+Setting timers
+Any operation that needs to happen after render
+
+
+
+
+
+Cleanup Function
+Essential for avoiding memory leaks
+
+Runs before the component unmounts and before re-running the effect
+
+Should undo whatever the effect did
+

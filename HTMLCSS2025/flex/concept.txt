@@ -1,0 +1,82 @@
+Property	            Controls...	                  When...	          Default
+
+flex-grow	         Growing of items	          Extra space is there	     0
+flex-shrink	         Shrinking of items	          Not enough space	         1
+
+
+
+flex-basis 
+How big the item wants to be before flex-grow or flex-shrink touch it."
+
+
+
+
+Property	       What it Controls	                                     Default	  Common Values	          When it Kicks In
+
+flex-grow	    Ability to grow when there is extra space	              0	           0, 1, 2, etc.	      When container has extra space
+flex-shrink	    Ability to shrink when there is not enough space	      1	           0, 1, 2, etc.	      When container is too small
+flex-basis	    The initial size of the item before grow/shrink	auto	 px, %,          auto	              Always — it's the starting point
+
+🧩 Shorthand Syntax
+flex: <flex-grow> <flex-shrink> <flex-basis>;
+
+Grow = push outward when there’s space
+Shrink = squeeze inward when space is tight
+Basis = default size before anything happens
+
+
+
+
+
+ Visualization Summary
+
+                   Container Space
+  ┌────────────────────────────────────────┐
+  │     grow ↑                             │
+  │ ┌────────────┐  ← basis                │
+  │ │   flex item│                        ←→ shrink
+  │ └────────────┘                         │
+  └────────────────────────────────────────┘
+
+
+
+  Shorthand	        What it Means
+flex: 1 1 200px;	Grow & shrink equally, start at 200px
+flex: 0 1 auto;	    No grow, can shrink, use natural content size
+flex: 1 0 300px;	Can grow, won’t shrink, starts at 300px
+flex: 0 0 250px;	Fixed width — no grow, no shrink
+flex: 2 1 100px;	Grow twice as much as items with flex: 1, shrink normally
+
+
+
+
+Property	              What it Controls	                          Values	Default
+flex-direction	      Direction of main axis	                   row, row-reverse, column, column-reverse	row
+flex-wrap	          Whether items wrap or not	nowrap,            wrap, wrap-reverse	nowrap
+flex-flow	          Shorthand for flex-direction & flex-wrap	   e.g. row wrap	row nowrap
+justify-content	      Alignment on main axis	                   flex-start, center, space-between, space-around, space-evenly, flex-end	flex-start
+align-items	          Alignment on cross axis	                   stretch, center, flex-start, flex-end, baseline	stretch
+align-content	      Alignment of multiple lines	               stretch, center, space-between, space-around, flex-start, flex-end	stretch
+
+
+
+
+
+2. flex-flow
+Purpose:
+Shorthand for flex-direction + flex-wrap in one line.
+
+When to Use It:
+✅ Cleaner Code
+
+Combines two properties for brevity.
+/* Without flex-flow */
+.container {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* With flex-flow */
+.container {
+  flex-flow: row wrap; /* Direction + wrap */
+}

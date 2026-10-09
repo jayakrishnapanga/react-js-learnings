@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Redux Evolution</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#0f0f1a;color:#e0e0e0;padding:20px}
+h1{text-align:center;font-size:1.8rem;color:#a78bfa;margin-bottom:4px}
+.sub{text-align:center;color:#888;margin-bottom:20px;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:#1a1a2e;border-radius:10px;padding:14px;border-top:4px solid}
+.c1{border-color:#ef4444}.c2{border-color:#f97316}.c3{border-color:#3b82f6}.c4{border-color:#22c55e}
+.c1 h2{color:#ef4444}.c2 h2{color:#f97316}.c3 h2{color:#3b82f6}.c4 h2{color:#22c55e}
+h2{font-size:1rem;margin-bottom:3px}
+.era{font-size:.72rem;color:#888;margin-bottom:8px}
+.badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.badge{font-size:.68rem;padding:2px 7px;border-radius:20px;background:#2a2a3e;color:#ccc}
+.lbl{font-size:.72rem;font-weight:bold;color:#a78bfa;margin:10px 0 3px;text-transform:uppercase;letter-spacing:.05em}
+pre{background:#0d0d1a;border-radius:6px;padding:10px;font-size:.68rem;overflow-x:auto;line-height:1.55;tab-size:2}
+.pain{background:#2a1a1a;border-left:3px solid #ef4444;padding:7px 9px;border-radius:4px;font-size:.72rem;color:#fca5a5;margin-top:10px}
+.win{background:#1a2a1a;border-left:3px solid #22c55e;padding:7px 9px;border-radius:4px;font-size:.72rem;color:#86efac;margin-top:10px}
+.lc{font-size:.68rem;color:#888;margin-top:6px}
+.arrows{display:flex;justify-content:space-around;align-items:center;margin:8px 0 18px}
+.arr{font-size:1.6rem;color:#a78bfa}
+.arrl{font-size:.72rem;color:#888;text-align:center}
+.cm{color:#6b7280}.kw{color:#c084fc}.fn{color:#60a5fa}.st{color:#34d399}
+table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:14px}
+th{padding:9px;text-align:left;background:#0d0d1a}
+td{padding:9px;border-top:1px solid #2a2a3e}
+tr:nth-child(even){background:#16162a}
+.yes{color:#22c55e}.no{color:#ef4444}.med{color:#f97316}.blu{color:#3b82f6}
+</style>
+</head>
+<body>
+<h1>Redux Evolution</h1>
+<p class="sub">Same example — Fetch &amp; Add Posts — across all 4 approaches. Watch boilerplate shrink.</p>
+<div class="arrows">
+  <div class="arrl">Start</div>
+  <div class="arr">&#8594;</div>
+  <div class="arrl">Async out of component</div>
+  <div class="arr">&#8594;</div>
+  <div class="arrl">Less boilerplate</div>
+  <div class="arr">&#8594;</div>
+  <div class="arrl">Zero boilerplate</div>
+</div>
+<div class="grid">
+
+<!-- CARD 1 -->
+<div class="card c1">
+  <h2>1. Vanilla Redux</h2>
+  <div class="era">~2015 &mdash; The original</div>
+  <div class="badges">
+    <span class="badge">Manual everything</span>
+    <span class="badge">No async built-in</span>
+    <span class="badge">~80 lines</span>
+  </div>
+  <div class="lbl">Action Types</div>
+  <pre><span class="cm">// constants.js</span>
+<span class="kw">const</span> FETCH_REQUEST  = <span class="st">'FETCH_REQUEST'</span>
+<span class="kw">const</span> FETCH_SUCCESS  = <span class="st">'FETCH_SUCCESS'</span>
+<span class="kw">const</span> FETCH_FAILURE  = <span class="st">'FETCH_FAILURE'</span>
+<span class="kw">const</span> ADD_REQUEST    = <span class="st">'ADD_REQUEST'</span>
+<span class="kw">const</span> ADD_SUCCESS    = <span class="st">'ADD_SUCCESS'</span>
+<span class="kw">const</span> ADD_FAILURE    = <span class="st">'ADD_FAILURE'</span></pre>
+  <div class="lbl">Reducer</div>
+  <pre><span class="cm">// reducer.js</span>
+<span class="kw">const</span> init = { posts:[], loading:<span class="kw">false</span>, error:<span class="kw">null</span> }
+
+<span class="kw">function</span> <span class="fn">reducer</span>(state = init, action) {
+  <span class="kw">switch</span>(action.type) {
+    <span class="kw">case</span> FETCH_REQUEST:
+      <span class="kw">return</span> { ...state, loading:<span class="kw">true</span> }
+    <span class="kw">case</span> FETCH_SUCCESS:
+      <span class="kw">return</span> { ...state, loading:<span class="kw">false</span>,
+               posts: action.payload }
+    <span class="kw">case</span> FETCH_FAILURE:
+      <span class="kw">return</span> { ...state, loading:<span class="kw">false</span>,
+               error: action.payload }
+    <span class="kw">default</span>: <span class="kw">return</span> state
+  }
+}</pre>
+  <div class="lbl">Store</div>
+  <pre><span class="kw">import</span> { createStore } <span class="kw">from</span> <span class="st">'redux'</span>
+<span class="kw">const</span> store = <span class="fn">createStore</span>(reducer)</pre>
+  <div class="lbl">Component</div>
+  <pre><span class="cm">// async lives IN the component</span>
+<span class="kw">function</span> <span class="fn">Posts</span>() {
+  <span class="kw">const</span> dispatch = <span class="fn">useDispatch</span>()
+  <span class="kw">const</span> { posts, loading } = <span class="fn">useSelector</span>(s =&gt; s)
+
+  <span class="kw">const</span> <span class="fn">load</span> = <span class="kw">async</span> () =&gt; {
+    dispatch({ type: FETCH_REQUEST })
+    <span class="kw">try</span> {
+      <span class="kw">const</span> res  = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">'/posts'</span>)
+      <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>()
+      dispatch({ type: FETCH_SUCCESS, payload: data })
+    } <span class="kw">catch</span>(e) {
+      dispatch({ type: FETCH_FAILURE, payload: e.message })
+    }
+  }
+
+  <span class="fn">useEffect</span>(() =&gt; { <span class="fn">load</span>() }, [])
+
+  <span class="kw">if</span> (loading) <span class="kw">return</span> &lt;p&gt;Loading...&lt;/p&gt;
+  <span class="kw">return</span> &lt;ul&gt;{posts.<span class="fn">map</span>(p =&gt;
+    &lt;li key={p.id}&gt;{p.title}&lt;/li&gt;
+  )}&lt;/ul&gt;
+}</pre>
+  <div class="pain">&#128543; 6 action type strings, manual try/catch in component, spread every state update, easy to forget loading/error</div>
+  <div class="lc">~80 lines of boilerplate for one feature</div>
+</div>
+
+<!-- CARD 2 -->
+<div class="card c2">
+  <h2>2. Redux + Thunk</h2>
+  <div class="era">~2016 &mdash; Async moved to action creators</div>
+  <div class="badges">
+    <span class="badge">Thunk middleware</span>
+    <span class="badge">Async in actions</span>
+    <span class="badge">~70 lines</span>
+  </div>
+  <div class="lbl">Action Types (same 6 constants)</div>
+  <pre><span class="cm">// Still need all 6 string constants...</span>
+<span class="kw">const</span> FETCH_REQUEST = <span class="st">'FETCH_REQUEST'</span>
+<span class="cm">// ... etc</span></pre>
+  <div class="lbl">Thunk Action Creators</div>
+  <pre><span class="cm">// actions.js — async lives here now</span>
+<span class="kw">const</span> <span class="fn">fetchPosts</span> = () =&gt; <span class="kw">async</span> (dispatch) =&gt; {
+  dispatch({ type: FETCH_REQUEST })
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res  = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">'/posts'</span>)
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>()
+    dispatch({ type: FETCH_SUCCESS, payload: data })
+  } <span class="kw">catch</span>(e) {
+    dispatch({ type: FETCH_FAILURE, payload: e.message })
+  }
+}
+
+<span class="kw">const</span> <span class="fn">addPost</span> = (post) =&gt; <span class="kw">async</span> (dispatch) =&gt; {
+  dispatch({ type: ADD_REQUEST })
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res  = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">'/posts'</span>, {
+      method: <span class="st">'POST'</span>, body: <span class="fn">JSON.stringify</span>(post)
+    })
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>()
+    dispatch({ type: ADD_SUCCESS, payload: data })
+    dispatch(<span class="fn">fetchPosts</span>()) <span class="cm">// manual refetch!</span>
+  } <span class="kw">catch</span>(e) {
+    dispatch({ type: ADD_FAILURE, payload: e.message })
+  }
+}</pre>
+  <div class="lbl">Store</div>
+  <pre><span class="kw">import</span> { createStore, applyMiddleware } <span class="kw">from</span> <span class="st">'redux'</span>
+<span class="kw">import</span> thunk <span class="kw">from</span> <span class="st">'redux-thunk'</span>
+
+<span class="kw">const</span> store = <span class="fn">createStore</span>(
+  reducer,
+  <span class="fn">applyMiddleware</span>(thunk)
+)</pre>
+  <div class="lbl">Component (cleaner)</div>
+  <pre><span class="cm">// Posts.jsx — no async here now!</span>
+<span class="kw">function</span> <span class="fn">Posts</span>() {
+  <span class="kw">const</span> dispatch = <span class="fn">useDispatch</span>()
+  <span class="kw">const</span> { posts, loading } = <span class="fn">useSelector</span>(s =&gt; s)
+
+  <span class="fn">useEffect</span>(() =&gt; {
+    dispatch(<span class="fn">fetchPosts</span>()) <span class="cm">// just dispatch</span>
+  }, [])
+
+  <span class="kw">if</span> (loading) <span class="kw">return</span> &lt;p&gt;Loading...&lt;/p&gt;
+  <span class="kw">return</span> &lt;ul&gt;{posts.<span class="fn">map</span>(p =&gt;
+    &lt;li key={p.id}&gt;{p.title}&lt;/li&gt;
+  )}&lt;/ul&gt;
+}</pre>
+  <div class="win">&#9989; Async out of component</div>
+  <div class="pain">&#128543; Still: 6 string constants, switch/case, spread operators, manual refetch after add</div>
+  <div class="lc">~70 lines &mdash; marginal improvement</div>
+</div>
+
+<!-- CARD 3 -->
+<div class="card c3">
+  <h2>3. RTK (Redux Toolkit)</h2>
+  <div class="era">~2019 &mdash; Official opinionated Redux</div>
+  <div class="badges">
+    <span class="badge">createSlice</span>
+    <span class="badge">createAsyncThunk</span>
+    <span class="badge">Immer built-in</span>
+    <span class="badge">~40 lines</span>
+  </div>
+  <div class="lbl">Slice (replaces constants + reducer)</div>
+  <pre><span class="cm">// postsSlice.js</span>
+<span class="kw">import</span> { createSlice, createAsyncThunk }
+  <span class="kw">from</span> <span class="st">'@reduxjs/toolkit'</span>
+
+<span class="cm">// auto-generates pending/fulfilled/rejected</span>
+<span class="kw">export const</span> <span class="fn">fetchPosts</span> = <span class="fn">createAsyncThunk</span>(
+  <span class="st">'posts/fetch'</span>,
+  <span class="kw">async</span> () =&gt; {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">'/posts'</span>)
+    <span class="kw">return</span> res.<span class="fn">json</span>() <span class="cm">// no try/catch needed!</span>
+  }
+)
+
+<span class="kw">export const</span> <span class="fn">addPost</span> = <span class="fn">createAsyncThunk</span>(
+  <span class="st">'posts/add'</span>,
+  <span class="kw">async</span> (post, { dispatch }) =&gt; {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">'/posts'</span>, {
+      method: <span class="st">'POST'</span>, body: <span class="fn">JSON.stringify</span>(post)
+    })
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>()
+    dispatch(<span class="fn">fetchPosts</span>()) <span class="cm">// still manual refetch</span>
+    <span class="kw">return</span> data
+  }
+)
+
+<span class="kw">const</span> slice = <span class="fn">createSlice</span>({
+  name: <span class="st">'posts'</span>,
+  initialState: { posts:[], loading:<span class="kw">false</span>, error:<span class="kw">null</span> },
+  reducers: {},
+  extraReducers: (builder) =&gt; {
+    builder
+      .<span class="fn">addCase</span>(fetchPosts.pending,   (state) =&gt; {
+        state.loading = <span class="kw">true</span>  <span class="cm">// Immer: mutate directly!</span>
+      })
+      .<span class="fn">addCase</span>(fetchPosts.fulfilled, (state, { payload }) =&gt; {
+        state.loading = <span class="kw">false</span>
+        state.posts   = payload
+      })
+      .<span class="fn">addCase</span>(fetchPosts.rejected,  (state, { error }) =&gt; {
+        state.loading = <span class="kw">false</span>
+        state.error   = error.message
+      })
+  }
+})
+<span class="kw">export default</span> slice.reducer</pre>
+  <div class="lbl">Store</div>
+  <pre><span class="kw">import</span> { configureStore } <span class="kw">from</span> <span class="st">'@reduxjs/toolkit'</span>
+<span class="cm">// thunk middleware included by default!</span>
+<span class="kw">export const</span> store = <span class="fn">configureStore</span>({
+  reducer: { posts: postsReducer }
+})</pre>
+  <div class="lbl">Component</div>
+  <pre><span class="kw">function</span> <span class="fn">Posts</span>() {
+  <span class="kw">const</span> dispatch = <span class="fn">useDispatch</span>()
+  <span class="kw">const</span> { posts, loading } =
+    <span class="fn">useSelector</span>(s =&gt; s.posts)
+
+  <span class="fn">useEffect</span>(() =&gt; {
+    dispatch(<span class="fn">fetchPosts</span>())
+  }, [])
+
+  <span class="kw">const</span> <span class="fn">handleAdd</span> = () =&gt;
+    dispatch(<span class="fn">addPost</span>({ title:<span class="st">'New'</span>, userId:1 }))
+
+  <span class="kw">if</span> (loading) <span class="kw">return</span> &lt;p&gt;Loading...&lt;/p&gt;
+  <span class="kw">return</span> (
+    &lt;&gt;
+      &lt;button onClick={handleAdd}&gt;Add&lt;/button&gt;
+      &lt;ul&gt;{posts.<span class="fn">map</span>(p =&gt;
+        &lt;li key={p.id}&gt;{p.title}&lt;/li&gt;
+      )}&lt;/ul&gt;
+    &lt;/&gt;
+  )
+}</pre>
+  <div class="win">&#9989; No string constants, no spread, Immer direct mutation, auto pending/fulfilled/rejected</div>
+  <div class="pain">&#128543; Still: manage loading/error yourself, useEffect to trigger, no caching, manual refetch</div>
+  <div class="lc">~40 lines &mdash; big improvement!</div>
+</div>
+
+<!-- CARD 4 -->
+<div class="card c4">
+  <h2>4. RTK Query</h2>
+  <div class="era">~2021 &mdash; Data fetching fully solved</div>
+  <div class="badges">
+    <span class="badge">Auto caching</span>
+    <span class="badge">Auto loading states</span>
+    <span class="badge">Auto refetch</span>
+    <span class="badge">~15 lines</span>
+  </div>
+  <div class="lbl">API Slice (everything in one place)</div>
+  <pre><span class="cm">// apiSlice.js</span>
+<span class="kw">import</span> { createApi, fetchBaseQuery }
+  <span class="kw">from</span> <span class="st">'@reduxjs/toolkit/query/react'</span>
+
+<span class="kw">export const</span> apiSlice = <span class="fn">createApi</span>({
+  reducerPath: <span class="st">'api'</span>,
+  baseQuery: <span class="fn">fetchBaseQuery</span>({
+    baseUrl: <span class="st">'https://jsonplaceholder.typicode.com'</span>
+  }),
+  tagTypes: [<span class="st">'Post'</span>],
+  endpoints: (builder) =&gt; ({
+
+    getPosts: builder.<span class="fn">query</span>({
+      query: () =&gt; <span class="st">'/posts?_limit=5'</span>,
+      providesTags: [<span class="st">'Post'</span>]
+    }),
+
+    addPost: builder.<span class="fn">mutation</span>({
+      query: (post) =&gt; ({
+        url: <span class="st">'/posts'</span>, method: <span class="st">'POST'</span>, body: post
+      }),
+      invalidatesTags: [<span class="st">'Post'</span>] <span class="cm">// auto refetch!</span>
+    }),
+
+  })
+})
+
+<span class="kw">export const</span> {
+  useGetPostsQuery,
+  useAddPostMutation
+} = apiSlice</pre>
+  <div class="lbl">Store</div>
+  <pre><span class="kw">import</span> { configureStore } <span class="kw">from</span> <span class="st">'@reduxjs/toolkit'</span>
+<span class="kw">import</span> { apiSlice } <span class="kw">from</span> <span class="st">'./apiSlice'</span>
+
+<span class="kw">export const</span> store = <span class="fn">configureStore</span>({
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer
+  },
+  middleware: (get) =&gt;
+    <span class="fn">get</span>().<span class="fn">concat</span>(apiSlice.middleware)
+})</pre>
+  <div class="lbl">Component (minimal!)</div>
+  <pre><span class="cm">// No useEffect. No dispatch. No loading state.</span>
+<span class="kw">function</span> <span class="fn">Posts</span>() {
+  <span class="kw">const</span> {
+    data: posts = [],
+    isLoading, isError
+  } = <span class="fn">useGetPostsQuery</span>()
+  <span class="cm">// fetches on mount, caches, deduplicates</span>
+
+  <span class="kw">const</span> [addPost, { isLoading: isAdding }]
+    = <span class="fn">useAddPostMutation</span>()
+
+  <span class="kw">if</span> (isLoading) <span class="kw">return</span> &lt;p&gt;Loading...&lt;/p&gt;
+  <span class="kw">if</span> (isError)   <span class="kw">return</span> &lt;p&gt;Error!&lt;/p&gt;
+
+  <span class="kw">return</span> (
+    &lt;&gt;
+      &lt;button
+        disabled={isAdding}
+        onClick={() =&gt; <span class="fn">addPost</span>({ title:<span class="st">'New'</span>, userId:1 })}
+      &gt;
+        {isAdding ? <span class="st">'Adding...'</span> : <span class="st">'Add Post'</span>}
+      &lt;/button&gt;
+      &lt;ul&gt;{posts.<span class="fn">map</span>(p =&gt;
+        &lt;li key={p.id}&gt;{p.title}&lt;/li&gt;
+      )}&lt;/ul&gt;
+    &lt;/&gt;
+  )
+}</pre>
+  <div class="win">&#9989; Zero loading/error management, auto caching, auto refetch on mutation, no useEffect, no dispatch for fetching, request deduplication</div>
+  <div class="lc">~15 lines in component &mdash; 5x less than vanilla!</div>
+</div>
+
+</div>
+
+<!-- Comparison Table -->
+<div style="margin-top:28px;background:#1a1a2e;border-radius:10px;padding:18px">
+  <h2 style="color:#a78bfa;font-size:1rem;margin-bottom:4px">Feature Comparison</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="color:#888">Feature</th>
+        <th style="color:#ef4444;text-align:center">Vanilla Redux</th>
+        <th style="color:#f97316;text-align:center">Redux + Thunk</th>
+        <th style="color:#3b82f6;text-align:center">RTK</th>
+        <th style="color:#22c55e;text-align:center">RTK Query</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Async support</td><td style="text-align:center" class="no">Manual in component</td><td style="text-align:center" class="med">Thunk middleware</td><td style="text-align:center" class="blu">createAsyncThunk</td><td style="text-align:center" class="yes">Built-in &#9989;</td></tr>
+      <tr><td>Loading/Error state</td><td style="text-align:center" class="no">100% manual</td><td style="text-align:center" class="no">100% manual</td><td style="text-align:center" class="med">Semi-auto</td><td style="text-align:center" class="yes">Auto &#9989;</td></tr>
+      <tr><td>Caching</td><td style="text-align:center" class="no">&#10060;</td><td style="text-align:center" class="no">&#10060;</td><td style="text-align:center" class="no">&#10060;</td><td style="text-align:center" class="yes">Auto &#9989;</td></tr>
+      <tr><td>Auto refetch after mutation</td><td style="text-align:center" class="no">&#10060;</td><td style="text-align:center" class="no">&#10060;</td><td style="text-align:center" class="no">&#10060;</td><td style="text-align:center" class="yes">invalidatesTags &#9989;</td></tr>
+      <tr><td>useEffect needed?</td><td style="text-align:center" class="no">Yes</td><td style="text-align:center" class="no">Yes</td><td style="text-align:center" class="no">Yes</td><td style="text-align:center" class="yes">No &#9989;</td></tr>
+      <tr><td>String action constants</td><td style="text-align:center" class="no">6+</td><td style="text-align:center" class="no">6+</td><td style="text-align:center" class="yes">0 &#9989;</td><td style="text-align:center" class="yes">0 &#9989;</td></tr>
+      <tr><td>Spread operators in reducer</td><td style="text-align:center" class="no">Every case</td><td style="text-align:center" class="no">Every case</td><td style="text-align:center" class="yes">None (Immer) &#9989;</td><td style="text-align:center" class="yes">None &#9989;</td></tr>
+      <tr><td>Request deduplication</td><td style="text-align:center" class="no">&#10060;</td><td style="text-align:center" class="no">&#10060;</td><td style="text-align:center" class="no">&#10060;</td><td style="text-align:center" class="yes">Auto &#9989;</td></tr>
+      <tr><td>Component lines (fetch feature)</td><td style="text-align:center" class="no">~25</td><td style="text-align:center" class="med">~15</td><td style="text-align:center" class="blu">~15</td><td style="text-align:center" class="yes">~8 &#9989;</td></tr>
+      <tr><td>Total boilerplate lines</td><td style="text-align:center" class="no">~80</td><td style="text-align:center" class="no">~70</td><td style="text-align:center" class="med">~40</td><td style="text-align:center" class="yes">~20 &#9989;</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p style="text-align:center;color:#555;font-size:.72rem;margin-top:16px">Redux Evolution Guide &mdash; open in browser for best experience</p>
+</body>
+</html>

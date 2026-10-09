@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Auto Search Suggestion</title>
+    <style>
+      #suggestionBox {
+        border: 1px solid #ccc;
+        width: 200px;
+        margin-top: 5px;
+        padding: 5px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Search:</h3>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Type to search..."
+      onkeyup="optimisedsearch(this.value)"
+    />
+
+    <div id="suggestionBox">Suggestions appear here</div>
+
+    <script>
+      let counter = 0;
+
+      function showSuggestion(value) {
+        console.log("fetch data", counter++, "with:", value);
+        const suggestionBox = document.getElementById("suggestionBox");
+
+        if (value.length === 0) {
+          suggestionBox.style.display = "none";
+        } else {
+          suggestionBox.style.display = "block";
+          suggestionBox.innerText = "You typed: " + value;
+        }
+      }
+
+      function debouncedSearch(fn, delay) {
+        let timer;
+        return function (...args) {
+          let context = this;
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            fn.apply(context, args);
+          }, delay);
+        };
+      }
+      const optimisedsearch = debouncedSearch(showSuggestion, 500);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,156 @@
+
+“We are not manually subscribing… so how is this component automatically re-rendering when state changes?”
+
+This happens under the hood, thanks to how React-Redux implements useSelector. Let's dive in step by step.
+
+But the magic happens inside the useSelector hook, which does subscribe for you behind the scenes.
+
+⚙️ How it works internally
+1. Provider connects your app to the Redux store
+
+<Provider store={store}>
+  <App />
+</Provider>
+
+The Provider component makes the Redux store available to all components via React Context.
+
+Internally, it uses React’s Context API to provide the store object.
+
+
+2. useSelector() hooks into the Redux store
+When you do this:
+
+const count = useSelector((state) => state.counter.value);
+Here's what actually happens:
+
+useSelector reads the Redux store value using your selector function.
+
+Then it subscribes to the store via store.subscribe().
+
+Every time the store updates:
+
+It re-runs your selector (state => state.counter.value).
+
+It compares the new value vs the previous value using ===.
+
+If the value changed, it causes the component to re-render.
+
+
+Here’s a simplified version of what happens internally:
+function useSelector(selector) {
+  const store = useContext(ReactReduxContext).store;
+  const [selectedState, setSelectedState] = useState(selector(store.getState()));
+
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      const newState = selector(store.getState());
+      if (newState !== selectedState) {
+        setSelectedState(newState); // triggers re-render
+      }
+    });
+
+    return unsubscribe; // cleanup
+  }, [store, selectedState, selector]);
+
+  return selectedState;
+}
+
+
+
+✅ Basic Rule
+Each component that uses useSelector(...):
+** Subscribes independently to the Redux store.
+** Re-renders only when its selected state changes.
+
+⚙️ What useSelector does:
+
+useSelector((state) => state.user)
+
+Subscribes to store changes.
+Tracks the selected slice (state.user).
+Only re-renders the component if state.user changes.
+
+
+
+Each useSelector():
+
+Subscribes to the store with store.subscribe().
+
+Stores the last selected value.
+
+On every dispatch:
+
+Redux calls all subscribers.
+
+Each selector re-runs and compares old vs new.
+
+Only components whose selected values changed will re-render.
+
+This is shallow equality (===) by default.
+
+
+[Redux Store Change]
+      ↓
+ [Notifies All useSelector Subscribers]
+      ↓
+[Each Selector Runs Again]
+      ↓
+[Only Components With Changed Values Re-render]
+
+
+
+
+| Component        | Selector Used                                  |
+| ---------------- | ---------------------------------------------- |
+| `CounterDisplay` | `state.counter.value`                          |
+| `UserProfile`    | `state.user.name`                              |
+| `ThemeToggle`    | `state.theme.darkMode`                         |
+| `UserAgeDisplay` | `state.user.age`                               |
+| `AppInfo`        | `state.app.version` (assume we added this too) |
+
+
+Redux Store Before :
+
+{
+  counter: { value: 10 },
+  user: { name: 'Alice', age: 25 },
+  theme: { darkMode: true }
+}
+
+
+
+🔄 What Happens on dispatch(increment())?
+increment() updates state.counter.value.
+
+Redux Store After:
+
+{
+  counter: { value: 11 }, // changed
+  user: { name: 'Alice', age: 25 },
+  theme: { darkMode: true }
+}
+
+React-Redux will:
+Re-render only CounterDisplay.
+
+NOT re-render UserProfile, UserAgeDisplay, ThemeToggle, or AppInfo.
+
+Why? Because their selectors returned the same values as before → no re-render needed.
+
+📦 Behind the Scenes:
+Each useSelector():
+
+Subscribes to the store with store.subscribe().
+
+Stores the last selected value.
+
+On every dispatch:
+
+Redux calls all subscribers.
+
+Each selector re-runs and compares old vs new.
+
+Only components whose selected values changed will re-render.
+
+This is shallow equality (===) by default.
+

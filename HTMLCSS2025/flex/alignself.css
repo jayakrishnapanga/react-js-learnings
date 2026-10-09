@@ -1,0 +1,33 @@
+.practice {
+  display: flex;
+  height: 300px;
+  border: 2px solid black;
+  /* align-items: flex-start; */
+}
+.practice > div {
+  width: 80px;
+  height: 80px;
+  background: lightblue;
+  margin: 10px;
+}
+
+.practice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 300px;
+}
+.practice > div:nth-child(2) {
+  align-self: flex-end;
+}
+
+/* .practice {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  border: 2px solid black;
+  height: 300px;
+}
+.practice > div:nth-child(2) {
+  align-self: flex-start;
+} */

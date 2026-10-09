@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .container {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+          "header header"
+          "sidebar content"
+          "footer footer";
+        gap: 12px;
+        align-items: start;
+      }
+      .header {
+        grid-area: header;
+        background-color: rgb(38, 129, 209);
+      }
+      .sidebar {
+        grid-area: sidebar;
+        background-color: blueviolet;
+      }
+      .content {
+        grid-area: content;
+        background-color: darkkhaki;
+      }
+      .footer {
+        grid-area: footer;
+        background-color: chartreuse;
+      }
+      .child {
+        width: 500px;
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">Header</div>
+      <div class="sidebar">
+        Sidebar
+        <div class="child">child</div>
+      </div>
+      <div class="content">Content</div>
+      <div class="footer">Footer</div>
+    </div>
+  </body>
+</html>

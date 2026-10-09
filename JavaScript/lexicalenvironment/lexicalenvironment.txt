@@ -1,0 +1,22 @@
+
+Lexical Meaning:
+In programming, "lexical" refers to the placement or writing of code (e.g., variables, functions, etc.) in the source code.
+It is about where something is written in the code, not how it is executed.
+
+Lexical Scope:
+Lexical scope (or static scope) refers to the scope of a variable or function being determined by its position in the source code (where it is written). 
+In JavaScript, the scope of a variable or function is defined by its location in the code at the time the code is written, not at runtime.
+
+Lexical: Refers to the placement or writing of code.
+
+Lexical Scope: Determined by where variables/functions are written in the code.
+
+Lexical Environment: The internal structure that represents the current scope and its outer scopes.
+
+
+
+A lexical environment is the combination of the current scope's variables and functions (local scope) and a reference to the outer lexical environment (lexical scope).
+Lexical Environment:--------------
+A lexical environment is a more technical concept in JavaScript. It is the internal data structure used by the JavaScript engine to manage scope and variable references. It consists of two parts:
+1.Environment Record: Stores the variables and functions declared in the current scope.
+2.Reference to the Outer Lexical Environment: A link to the parent scope (lexical environment) where the current scope is nested

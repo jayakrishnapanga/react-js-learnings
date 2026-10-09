@@ -1,0 +1,73 @@
+🧩 What is combineReducers?
+combineReducers is a utility function provided by Redux that:
+
+Takes multiple slice reducers (one per state key) and combines them into a single root reducer.
+
+💡 Why is this needed?
+Redux’s store can only accept one reducer function. But in real apps, your state often has multiple parts — like user, counter, posts, etc.
+
+Each part usually has its own logic, so you write separate slice reducers for each one.
+
+combineReducers lets you:
+
+Keep reducers modular and focused
+
+Compose them into a single root reducer for the store
+
+🧠 How it works
+Given these slice reducers:
+function counterReducer(state = { value: 0 }, action) {
+  switch (action.type) {
+    case 'increment':
+      return { value: state.value + 1 };
+    default:
+      return state;
+  }
+}
+
+function userReducer(state = { name: '' }, action) {
+  switch (action.type) {
+    case 'setUser':
+      return { name: action.payload };
+    default:
+      return state;
+  }
+}
+Combine them:
+import { combineReducers } from 'redux';
+
+const rootReducer = combineReducers({
+  counter: counterReducer,
+  user: userReducer,
+});
+Now when Redux calls:
+
+rootReducer(undefined, { type: '@@redux/INIT' });
+It runs:
+
+counterReducer(undefined, action) → { value: 0 }
+
+userReducer(undefined, action) → { name: '' }
+
+And merges the result:
+
+{
+  counter: { value: 0 },
+  user: { name: '' }
+}
+This becomes your store’s initial state.
+
+
+
+🛠️ How it’s used in a Redux store
+const store = createStore(rootReducer);
+
+Or in Redux Toolkit:
+
+const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+    user: userReducer,
+  }
+});
+🔸 Redux Toolkit internally uses combineReducers for you when you pass a reducer object.

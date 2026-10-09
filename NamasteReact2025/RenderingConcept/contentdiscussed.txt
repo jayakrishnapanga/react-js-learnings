@@ -1,0 +1,59 @@
+how can we add styles?
+no of ways
+props
+what are props how props are useful? 
+
+passing argument to a function is like a passing an prop to an funnctional component 
+
+Finally a functional component is just like a normal function in javascript 
+same like that passing argument to a function is like a passing an prop to an funnctional component 
+
+
+a functional component in React is essentially just a JavaScript function.
+The way you pass arguments to a function is similar to how you pass props to a functional component.
+
+1️⃣ Understanding Functions in JavaScript
+In JavaScript, functions take arguments and return values.
+
+Example 1: A Simple Function
+function greet(name) {
+    return `Hello, ${name}!`;
+}
+
+console.log(greet("Alice")); // Output: Hello, Alice!
+Here, name is an argument that we pass to the greet function.
+The function returns a string that includes the provided name.
+2️⃣ Functional Components in React
+A functional component is also a JavaScript function, but instead of returning a simple value, it returns JSX (React elements).
+
+Example 2: A Functional Component
+
+function Greeting(props) {
+    return <h1>Hello, {props.name}!</h1>;
+}
+
+// Using the component
+<Greeting name="Alice" />
+Greeting is a functional component.
+It takes an object called props as an argument.
+It accesses props.name to display "Hello, Alice!".
+
+
+
+what is the use of props ?
+when you want to pass some dynamice data to a component then you need tp pass that data as prop to that component
+
+<Header name="krishna" age=30?>
+react will wrap this properties into an object  like this
+{
+    name:"krishna",
+    age:30
+}
+how can we pass props and destructuring it 
+
+what is config driven UI
+
+Each child in the list should have unique key prop 
+
+what is rendering ,render cycles optimization?
+rerendering 

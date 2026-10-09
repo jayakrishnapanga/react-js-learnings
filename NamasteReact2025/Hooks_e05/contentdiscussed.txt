@@ -1,0 +1,68 @@
+react project folder structure 
+components and write the file name as the exact name of the component 
+
+modules 
+   exports 
+      types of exports
+   imports 
+    how can we import name exports and default exports 
+does our module can have two default exports or not 
+when to use named exports and how can you import that
+when to use default export and how can you import that 
+
+listen from 1 hr hooks concept started and initial one hour is react folder structure?
+what are hooks?
+react are just normal functions but they are inbuilt and come with super powers
+
+why hooks are important
+
+what is useState hook ?
+it is used to create a state variable,
+it will maintain local state of your component
+
+whenever state variable is updated the react will rerender the component 
+
+is state is immutable or mutable?
+how can you decalre the state variable?
+const [count,setCount]=useState(0);
+
+how can you update state variable  ?
+   nromal update --- ex: setCount(count+1)
+   functional update --- ex:setCount((prevcount)=>prevcount+1)
+      Key Difference: Instead of relying on the closure's count, it asks React:
+      "Give me the most recent pending value of count, then update it"
+   update is done synchrously or asynchronously?
+   what bacthed updates?
+Why is mutating state not recommended in React? 
+https://react.dev/learn/queueing-a-series-of-state-updates
+
+virtual dom 
+recolination 
+diff algorithm
+react fiber 
+
+
+https://blog.logrocket.com/simplifying-state-management-in-react-apps-with-batched-updates/
+https://codesandbox.io/p/sandbox/batched-update-snippet1-4wuk8?file=%2Fsrc%2Findex.js
+
+how can you decalre the state variable?
+
+const [count]=useState(0);
+const arr=useState(0)
+const count=arr[0]
+const setCount=arr[1]
+
+
+array destructuring 
+const [count,setCount]=useState(0);// this is standard and simple readability 
+
+
+what happens internally in the useState() function boilerplate codesandboxfunction
+useState(initialValue) {
+  let state = initialValue;
+  const setState = (newValue) => {
+    state = newValue;
+    // Plus re-render logic
+  };
+  return [state, setState]; // Returns an array with two items
+}

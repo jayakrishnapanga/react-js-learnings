@@ -1,0 +1,83 @@
+.container {
+  width: 400px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* -------------------- */
+/* ✅ PSEUDO CLASSES */
+/* -------------------- */
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* :hover */
+.btn:hover {
+  background: crimson;
+}
+
+/* :active */
+.btn:active {
+  transform: scale(10);
+}
+
+/* :focus */
+.input {
+  padding: 8px;
+  margin-top: 20px;
+  border: 2px solid gray;
+  outline: none;
+}
+
+.input:focus {
+  border-color: blue;
+}
+
+/* :nth-child */
+.list {
+  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  padding: 8px;
+}
+
+.list li:nth-child(even) {
+  background: lightgray;
+}
+
+/* -------------------- */
+/* ✅ PSEUDO ELEMENTS */
+/* -------------------- */
+.paragraph {
+  text-align: left; /* remove center */
+  display: block;
+}
+
+/* ::before */
+.paragraph::before {
+  content: "👉 ";
+  color: blue;
+}
+
+/* ::after */
+.paragraph::after {
+  content: " ✔";
+  color: green;
+}
+
+/* ::first-letter */
+.paragraph::first-letter {
+  font-size: 30px;
+  font-weight: bold;
+  color: purple;
+}

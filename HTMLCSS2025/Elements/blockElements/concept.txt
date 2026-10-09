@@ -1,0 +1,23 @@
+In HTML, block elements are elements that typically start on a new line and take up the full available width of their container (stretching left and right as far as possible). They create a "block" of content and can contain other block or inline elements.
+
+Key Characteristics of Block Elements:
+Start on a new line (unlike inline elements, which stay in the same line).
+
+Occupy full width of their parent container by default.
+
+Can have margins, padding, width, and height applied.
+
+Can contain both block and inline elements (unless restricted by HTML rules).
+
+Common Block-Level Elements in HTML:
+Element	         Description
+<div>	           Generic container for flow content
+<p>	               Paragraph
+<h1> to <h6>	   Headings
+<ul>, <ol>, <li>   Lists and list items
+<table>	           Table
+<form>	           Form container
+<section>, <article>, <header>, <footer>	Semantic HTML5 elements
+<blockquote>	 Block quotation
+<hr>	         Horizontal rule (line)
+<pre>	         Preformatted text

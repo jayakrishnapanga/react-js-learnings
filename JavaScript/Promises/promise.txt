@@ -1,0 +1,80 @@
+promises:
+---------
+promise is an object that represent eventual completion or failure of an asynchronous operation 
+
+promise have three states
+
+Pending: The initial state of the promise, neither fulfilled nor rejected.
+Fulfilled: The operation completed successfully, and the promise has a resulting value.
+Rejected: The operation failed, and the promise has a reason for the failure.
+
+
+
+**************************
+Think of a Promise as a task that you’ve delegated to someone.
+
+The .then() method is like saying, "Let me know when you’re done so I can do the next thing."
+When the task is completed (the Promise is resolved), the resolve function "notifies" the .then() method, and it automatically calls the function you provided.
+-------------------------------
+
+Why Are Promises Important?
+1.Improved Readability:
+Promises help avoid "callback hell," where multiple nested callbacks make code difficult to read and maintain.
+Instead of chaining callbacks, promises allow you to chain .then(), .catch(), and .finally() for cleaner and more linear code.
+2.Error Handling:
+Promises provide a single .catch() method to handle errors, making it easier to handle exceptions in asynchronous code.
+3.Promises can be combined using methods like Promise.all, Promise.race, Promise.allSettled, and Promise.any, enabling better management of multiple asynchronous operations.
+
+
+When to Use Promises?
+Anytime you are working with asynchronous operations like:
+Fetching data from an API
+Reading or writing files (in Node.js)
+Performing delayed or time-dependent tasks
+
+
+
+*********************
+Without return, the Promise chain breaks after the first .then(), causing subsequent .then() calls to receive undefined
+
+"reason for that example why it is not executing"
+(The issue is in the second .then() - you're not returning the Promise from displayStatus. Add a return:)
+example this code 
+
+
+function createOrderApi(cart){
+    return new Promise(function(resolve, reject){
+         //   here we have the logic creating order
+        //  validating the cart
+        if(cart){
+            resolve("12345") //we will return the order id 
+        }else{
+            const err=new Error("cart is not valid")
+            reject(err)
+        }
+    })
+}
+function proceedToPayment(orderid){
+    console.log(orderid)
+    return new Promise(function(resolve,reject){
+        resolve("transc12345")
+    })
+
+}
+function displayStatus(paymentid){
+    return new Promise(function(resolve,reject){
+        resolve("fetched all payemt details and order details ")
+    })
+}
+
+
+createOrderApi("pepejeans")
+.then(function (orderid){
+    return proceedToPayment(orderid)
+})
+.then(function(paymentid){
+     displayStatus(paymentid)
+})
+.then(function(data){
+    console.log(data)
+})

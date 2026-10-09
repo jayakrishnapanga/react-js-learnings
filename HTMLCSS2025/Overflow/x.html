@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .box {
+      width: 300px;
+      height: 120px;
+      border: 2px solid black;
+      overflow-x: auto;
+      /* overflow-y: hidden; */
+      white-space: nowrap; /* Keeps content in one line */
+    }
+    .content {
+      display: inline-block;
+      width: 600px;
+      height: 700px;
+      background: orange;
+    }
+  </style>
+</head>
+<body>
+  <h2>overflow-x: auto, overflow-y: hidden</h2>
+  <div class="box">
+    <div class="content">Scroll me horizontally only 👈👉</div>
+  </div>
+</body>
+</html>

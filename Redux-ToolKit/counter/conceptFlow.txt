@@ -1,0 +1,20 @@
+understand 
+core redux
+
+actions, store, reducer, dispatch , listeners(subscribers)
+
+how can we create store
+how can we add multiple reducers(internal topics combinedReducers,rootReducer)
+store.subscribe(callbackfn)
+store.getState()
+store.dispatch(action)
+how store value is initailsed
+
+after go to the redux tool kit
+their you will find 
+configureStore--> it accepts object as
+what happens internally (it will also call the combined reducers)
+how internally useSelector works 
+how useDispatch internally works 
+how components are render when selected state changes how this render it triggerd 
+

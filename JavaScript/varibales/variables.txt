@@ -1,0 +1,7 @@
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#variable_hoisting
+
+1. var and Function Scope
+Variables declared with var are function-scoped, not block-scoped.
+If var is declared outside any function (but inside a block), it still gets hoisted to the global scope (or the nearest function scope if inside a function).
+2. let and const are Block-Scoped
+Variables declared with let and const are block-scoped, which means they exist only within the block {} and aren't hoisted to the global or parent scope

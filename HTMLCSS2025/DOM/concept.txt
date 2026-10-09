@@ -1,0 +1,122 @@
+Whatever HTML code we write, the browser parses it and converts it into a DOM structure (a tree-like object model of the document).
+
+The browser also provides a global document object, which lets us interact with the DOM directly using JavaScript.
+
+Using the document object, we can:
+
+Access elements
+
+Change text or attributes
+
+Add or remove elements
+
+Dynamically inject new HTML into the page
+
+
+
+
+
+
+🧱 1. What is the DOM?
+DOM (Document Object Model) is a tree-like representation of your HTML page in memory.
+
+Example HTML:
+
+<html>
+  <body>
+    <div>
+      <p>Hello</p>
+    </div>
+  </body>
+</html>
+Becomes this structure in memory:
+
+
+html
+ └── body
+      └── div
+           └── p
+               └── "Hello"
+Each tag → a node in the DOM tree.
+
+Text is a text node.
+
+The DOM is live — it changes when JavaScript modifies it.
+
+⚙️ 2. Who Creates the DOM? When?
+✅ The Browser Engine (like Chrome's Blink or Firefox's Gecko) creates the DOM.
+
+When?
+
+Browser downloads your HTML.
+
+Parses it top to bottom.
+
+For each element → creates a DOM node.
+
+Once finished → the page is displayed.
+
+This is all part of the rendering pipeline.
+
+🧭 3. DOM vs Rendered Page (Visuals)
+The DOM is not the page, it’s just a JS object in memory.
+
+The page you see is rendered from the DOM by the browser.
+
+So if you change the DOM (e.g., via document.body.appendChild()), the browser reflects it visually.
+
+🧪 4. How Are Changes Added?
+Via JavaScript.
+
+You can change the DOM like this:
+
+
+document.querySelector('p').innerText = "Changed!";
+This:
+
+Modifies the text node in the DOM.
+
+Browser notices → schedules a "paint".
+
+After some milliseconds → re-paints that part.
+
+React abstracts this by using Virtual DOM and batch-updating the real DOM only when necessary.
+
+🖼️ 5. How the DOM Gets Painted (Rendering Pipeline)
+Browser's Rendering Steps:
+
+HTML → DOM
+CSS → CSSOM
+DOM + CSSOM → Render Tree
+Render Tree → Layout (positions/sizes)
+Layout → Paint (pixels created)
+Paint → Composite → Display
+
+➡️ In short:
+Parse HTML/CSS
+
+Build DOM + CSSOM
+
+Calculate layout
+
+Paint elements to screen
+
+Optimize and composite
+
+So when you change the DOM, the browser re-runs some steps (layout → paint → composite) only for affected parts.
+
+⚛️ 6. How React Fits In
+React:
+
+Doesn’t touch the real DOM directly.
+
+Builds a Virtual DOM (VDOM) (a copy in JS).
+
+When state/props change:
+
+Creates a new VDOM.
+
+Diffs it with the old VDOM.
+
+Applies minimal DOM changes using document.createElement, appendChild, setAttribute, etc.
+

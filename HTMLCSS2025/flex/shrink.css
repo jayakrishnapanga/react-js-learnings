@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    width: 500px; /* Force layout to be tight */
+    border: 2px solid black;
+  }
+  
+  .box {
+    width: 300px;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    /* flex-shrink: 1; */
+    /* box-sizing: border-box; */
+  }
+  
+  .box1 { background-color: #f44336; }
+  .box2 { background-color: #2196f3; }
+  .box3 { background-color: #4caf50; }
+
+  /* .box1 { flex-shrink: 1; }
+.box2, .box3 { flex-shrink: 0; } */
+  
+.box1 { flex-shrink: 1; }
+.box2 { flex-shrink: 2; }
+.box3 { flex-shrink: 0; }

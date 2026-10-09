@@ -1,0 +1,88 @@
+.fancy-btn {
+  position: relative;
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+/* Pseudo-element: overlay */
+.fancy-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+/* Pseudo-class: hover state */
+.fancy-btn:hover {
+  background: #2c82c9;
+}
+
+.fancy-btn:hover::after {
+  transform: scaleX(1);
+}
+
+
+
+
+
+
+
+
+
+.download-btn {
+  position: relative;
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+/*Pseudo-element BEFORE: Adds a download icon before text */
+.download-btn::before {
+  content: "⬇️"; /* You can use an emoji or Unicode character */
+  position: absolute;
+  left: 1rem;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+/*  Pseudo-element AFTER: Adds an overlay effect on hover */
+.download-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+/* Hover State */
+.download-btn:hover {
+  background: #2c82c9;
+}
+
+/* Animate overlay */
+.download-btn:hover::after {
+  transform: scaleX(1);
+}
+
+/* Animate icon movement on hover */
+.download-btn:hover::before {
+  transform: translateY(3px);
+}

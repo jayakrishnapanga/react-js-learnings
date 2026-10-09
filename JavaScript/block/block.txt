@@ -1,0 +1,19 @@
+block : { } this is called block 
+***********************
+A block in JavaScript groups multiple statements into one unit (wrapped by curly braces {}). 
+This block can be used in places where a single statement is expected, such as in conditionals (if statements), loops, or functions.
+{
+ let a=10
+ let b=30
+}
+
+
+Why Use Blocks?
+Blocks help:
+
+Organize Multiple Statements: Instead of being restricted to one line, you can execute several lines conditionally.
+Define Scope: let and const variables are scoped to the block.
+Maintain Readability: Makes logic easier to group and follow.
+
+
+t: A block groups multiple statements so they can act as a single unit where one statement is expected.

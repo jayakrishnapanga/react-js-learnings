@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Box Sizing Demo</title>
+  <style>
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .box {
+      width: 200px;
+      height: 100px;
+      padding: 20px;
+      border: 5px solid blue;
+      background-color: lightblue;
+      font-family: sans-serif;
+    }
+
+    .content-box {
+      box-sizing: content-box;
+    }
+
+    .border-box {
+      box-sizing: border-box;
+    }
+
+    .label {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div>
+      <div class="box content-box">content-box</div>
+      <div class="label">Total size: 250px</div>
+    </div>
+
+    <div>
+      <div class="box border-box">border-box</div>
+      <div class="label">Total size: 200px</div>
+    </div>
+  </div>
+
+</body>
+</html>

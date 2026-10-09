@@ -1,0 +1,11 @@
+.parent {
+  padding: 5px;
+  background-color: aquamarine;
+  text-align: start;
+  overflow-wrap: break-word; /* div lo unaa text ekkuva unte dhani outside pokunda wrap cheyandiki e property vaduthamm */
+  width: 500px;
+  text-align: justify; /* div end lo every line will end at same location  */
+}
+
+/* text-align: justify; → stretches the text so that both left and right edges line up.
+word-wrap: break-word; → ensures long words that can’t naturally break are wrapped to the next line. */

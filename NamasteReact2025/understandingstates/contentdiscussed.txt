@@ -1,0 +1,29 @@
+react project folder structure 
+components and write the file name as the exact name of the component 
+
+modules 
+   exports 
+      types of exports
+   imports 
+    how can we import name exports and default exports 
+does our module can have two default exports or not 
+when to use named exports and how can you import that
+when to use default export and how can you import that 
+
+listen from 1 hr hooks concept started and initial one hour is react folder structure?
+what are hooks?
+react are just normal functions but they are inbuilt and come with super powers
+
+why hooks are important
+
+what is useState hook ?
+it is used to create a state variable,
+it will maintain local state of your component
+
+whenever state variable is updated the react will rerender the component 
+is state is immutable or mutable?
+
+virtual dom 
+recolination 
+diff algorithm
+react fiber 

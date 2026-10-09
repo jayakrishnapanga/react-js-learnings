@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+    }
+
+    @keyframes pulse {
+      from {
+        transform: scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: scale(1.15);
+        opacity: 0.7;
+      }
+    }
+
+    .pulse {
+      width: 120px;
+      height: 120px;
+      background: crimson;
+      border-radius: 50%;
+
+      animation: pulse 1s ease-in-out infinite alternate;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pulse"></div>
+
+</body>
+</html>

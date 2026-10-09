@@ -1,0 +1,2 @@
+// this inside non-strictmode 
+// if the value of this is not set by the call, it will default to the global object, which is window in a browser or global in Node.js. In strict mode, this will be undefined if it is not set by the call.

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: 100px 200px 100px;
+      grid-template-rows: 80px 150px 100px;
+      gap: 10px;
+      background: lightgray;
+      padding: 10px;
+    }
+
+    /* grid-area: row-start / col-start / row-end / col-end */
+    .header  { grid-area: 1 / 1 / 2 / 4; background: lightcoral; }
+    .sidebar { grid-area: 2 / 1 / 3 / 2; background: lightblue; }
+    .main    { grid-area: 2 / 2 / 3 / 4; background: lightgreen; }
+    .footer  { grid-area: 3 / 1 / 4 / 4; background: lightgoldenrodyellow; }
+  </style>
+</head>
+<body>
+  <div class="grid-container">
+    <div class="header">Header</div>
+    <div class="sidebar">Sidebar</div>
+    <div class="main">Main</div>
+    <div class="footer">Footer</div>
+  </div>
+</body>
+</html>

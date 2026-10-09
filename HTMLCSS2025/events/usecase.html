@@ -1,0 +1,23 @@
+<div id="secure" style="padding:20px; background:lightgray;">
+  Secure Area
+  <button id="deleteBtn">Delete</button>
+</div>
+
+<script>
+  // Capturing: security check
+  document.getElementById("secure").addEventListener(
+    "click",
+    (event) => {
+      if (event.target.id === "deleteBtn") {
+        console.log("Blocked: You are not allowed to delete!");
+        event.stopPropagation(); // prevent button handler
+      }
+    },
+    true // 👈 capturing phase
+  );
+
+  // Target: delete button
+  document.getElementById("deleteBtn").addEventListener("click", () => {
+    console.log("Deleting item...");
+  });
+</script>

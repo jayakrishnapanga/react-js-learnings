@@ -1,0 +1,60 @@
+const fs = require('fs/promises');
+
+fs.readFile('file.txt').then(data => {
+  console.log(data.toString());
+});
+What’s happening?
+| Step                                             | Who does it?    |
+| ------------------------------------------------ | --------------- |
+| `fs.promises.readFile` creates a Promise         | V8              |
+| Node’s native binding calls libuv to do file I/O | libuv + OS      |
+| libuv’s thread pool reads the file               | OS thread pool  |
+| When done, libuv queues callback in Event Loop   | libuv           |
+| Event Loop tells V8 “resolve the Promise”        | Event Loop + V8 |
+| V8 puts `.then` callback in microtask queue      | V8              |
+| V8 runs the microtask                            | V8              |
+
+
+
+
+Who actually puts .then callbacks in the microtask queue?
+✔️ 1️⃣ Promises are V8’s job
+When you write:
+
+fs.promises.readFile('file.txt').then(() => console.log('done'));
+here’s the real split:
+
+| Part                                 | Who handles it     |
+| ------------------------------------ | ------------------ |
+| Promise creation & `.then()`         | V8                 |
+| Actual file I/O                      | libuv thread pool  |
+| Callback when I/O finishes           | libuv → Event Loop |
+| Resolving the Promise                | V8                 |
+| Putting `.then()` in microtask queue | V8                 |
+
+
+✔️ 2️⃣ How does libuv “wake up” V8?
+libuv does not know about Promises or microtasks — it’s C code.
+libuv does the I/O → when done, it queues a callback in the Event Loop phase.
+When the Event Loop picks up the callback, it calls a resolver function in V8-land that sets the Promise’s state to fulfilled or rejected.
+At that point, V8 itself sees the Promise is resolved, so it schedules the .then callback as a microtask.
+
+✅ So: libuv → Event Loop → V8
+libuv finishes the I/O.
+libuv’s callback → Event Loop phase → V8 call stack.
+That callback resolves the Promise.
+V8, by spec, immediately puts the .then callback in the microtask queue.
+
+After the current stack & macrotask phase, V8 runs the microtask queue.
+
+
+
+🗂️ Analogy
+libuv: “I’m done! Here’s your callback.”
+Event Loop: “I’ll run this callback now.”
+The callback: resolve() the Promise.
+V8: “Ah! A Promise just resolved → schedule .then in the microtask queue.”
+
+✅ libuv never knows about .then or await — it only does the OS work and triggers a normal callback.
+✅ V8 handles all the Promise & microtask mechanics, per the ECMAScript spec.
+

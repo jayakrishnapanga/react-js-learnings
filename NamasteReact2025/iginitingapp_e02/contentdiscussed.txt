@@ -1,0 +1,32 @@
+what is bundler ? 
+Parcel
+features of parcel :
+1.local server
+2.builds
+3.Consistent Hashing
+4.tree shaking
+5.differential builds
+6.HMR
+7.minification
+8.code splitting
+9.compression
+10.image optimization 
+11.convert jsx code into js code
+12.caching
+why react is so fast?
+what is package.json and package-lock.json?
+how many package-lock.json and package.json  files exists?
+differnce dev dependencies and dependencies?
+^ carret v/s ~ tilde
+what are transititve dependencies
+how to install dev dependencies?
+npm i -D parcel
+what is npx and npm 
+how can you start the app using npx parcel index.html
+what will happen when you run this command npx parcel index.html
+ 1.it will generates the bulid files , dist folder is created and in that build files will be added
+ and parecel cache will be generated , this will be used for generating the builds based on the mdoifications 
+ what this command will do npx parcel build index.html
+
+ how can you make your react application compatlable with old browsers
+  "browsersList":["last 2 versions"]

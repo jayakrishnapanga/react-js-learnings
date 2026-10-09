@@ -1,0 +1,90 @@
+If you write a function with async then it is considered as async function 
+***********************
+async function always return a promise 
+
+the combination of async and await used to handle promises 
+
+
+await is a keyword that can only be used inside an async funciton 
+!!!!!!!!!!!!!!!
+await does not block the main thread. Instead, it pauses the execution of the function containing it, allowing the event loop to continue processing other tasks while waiting for the Promise to resolve. This is the essence of JavaScript's non-blocking, asynchronous programming model.
+
+
+---------------------------------
+What People Think Happens with await:
+The main thread stops at await and waits for the Promise to resolve.
+This would block the execution of everything else in the application, including user interactions, rendering updates, or other asynchronous tasks.
+This misunderstanding often comes from the synchronous-like appearance of await.
+
+What Actually Happens Internally:
+Non-Blocking Behavior:
+
+When await is encountered, JavaScript suspends the execution of the current function's context.
+It doesn't block the main thread. Instead, the async function is paused, and its context is saved until the awaited Promise resolves.
+Control is Returned to the Event Loop:
+
+The main thread is freed up to execute other tasks, handle user interactions, or process other events in the event loop.
+The await just registers a continuation for the function, so once the Promise resolves, the function can resume from where it left off.
+Microtask Queue Priority:
+
+The resolution of the Promise goes to the microtask queue, which has higher priority than the callback queue (e.g., for setTimeout).
+This ensures the async function resumes as soon as possible once the Promise is resolved.
+
+
+
+You're absolutely right! Many people initially think that when they see await in a line like:
+
+let val1 = await p1;
+It blocks the main thread and executes synchronously, just like regular blocking I/O in some other languages (e.g., Python or Java when not using async techniques). However, this is a misconception in JavaScript's async model.
+
+Here’s a clearer explanation:
+
+What People Think Happens with await:
+The main thread stops at await and waits for the Promise to resolve.
+This would block the execution of everything else in the application, including user interactions, rendering updates, or other asynchronous tasks.
+This misunderstanding often comes from the synchronous-like appearance of await.
+
+What Actually Happens Internally:
+Non-Blocking Behavior:
+
+When await is encountered, JavaScript suspends the execution of the current function's context.
+It doesn't block the main thread. Instead, the async function is paused, and its context is saved until the awaited Promise resolves.
+Control is Returned to the Event Loop:
+
+The main thread is freed up to execute other tasks, handle user interactions, or process other events in the event loop.
+The await just registers a continuation for the function, so once the Promise resolves, the function can resume from where it left off.
+Microtask Queue Priority:
+
+The resolution of the Promise goes to the microtask queue, which has higher priority than the callback queue (e.g., for setTimeout).
+This ensures the async function resumes as soon as possible once the Promise is resolved.
+
+
+Example to Prove Non-Blocking Behavior:
+Here's an example that shows the main thread is not blocked:
+
+const p1 = new Promise((resolve) => {
+    setTimeout(resolve, 3000, "p1 resolved");
+});
+
+async function getData() {
+    console.log("Start getData");
+    let val1 = await p1;
+    console.log("After await:", val1);
+}
+
+getData();
+console.log("Main thread is not blocked!");
+
+
+
+Why This Design is Important:
+Single-Threaded Nature:
+JavaScript is single-threaded, so if the main thread were blocked, it would make the browser (or Node.js app) unresponsive during asynchronous operations.
+Efficient Execution:
+By freeing the main thread during await, JavaScript allows other tasks to continue, enabling a seamless user experience and efficient handling of asynchronous operations
+
+
+async/await splits your function into pieces: before await and after await.
+The before part runs synchronously.
+The after part waits for the Promise → goes into the microtask queue.
+Heavy lifting is offloaded to libuv’s thread pool → Event Loop → callback triggers your Promise → microtask resumes.

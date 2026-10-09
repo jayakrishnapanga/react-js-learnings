@@ -1,0 +1,61 @@
+Every object in JavaScript has a [[Prototype]] (accessed via __proto__ in browsers or Object.getPrototypeOf()).
+This is a reference to the object's prototype (its "parent").
+
+When an object is created using a constructor function (or a class), its [[Prototype]] is set to the constructor's prototype property.
+
+
+function Person(name) {
+  this.name = name;
+}
+
+const person1 = new Person("Alice");
+console.log(person1.__proto__ === Person.prototype); // true
+
+
+__proto__ is a property (deprecated but still widely used) that points to the prototype of an object.
+
+It is the actual link in the prototype chain that JavaScript uses to look up properties and methods.
+
+
+
+Functions have a prototype property:
+
+When you create a function, JavaScript automatically adds a prototype property to it.
+
+This prototype is an object that will be used as the prototype for instances created by that function (when used as a constructor with new)
+
+function Person(name) {
+  this.name = name;
+}
+
+// Adding a method to the prototype
+Person.prototype.greet = function() {
+  console.log(`Hello, my name is ${this.name}`);
+};
+
+const person1 = new Person("Alice");
+person1.greet(); // Output: "Hello, my name is Alice"
+
+Here:
+
+Person.prototype is an object.
+
+Instances of Person (like person1) inherit from Person.prototype.
+
+Functions themselves have a [[Prototype]]:
+
+Functions are also objects in JavaScript, so they have their own [[Prototype]] (accessed via __proto__).
+
+The [[Prototype]] of a function points to Function.prototype, which is the prototype for all functions.
+
+function Person() {}
+
+console.log(Person.__proto__ === Function.prototype); // true
+console.log(Function.prototype.__proto__ === Object.prototype); // true
+
+
+++++++++++++++++++++
+prototype is a property of functions (used for inheritance by instances).
+
+__proto__ is a property of objects (used to access their prototype).
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .grid-container {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .grid-item {
+        background: lightseagreen;
+        padding: 20px;
+        color: white;
+        font-size: 20px;
+        text-align: center;
+      }
+      .item1 {
+        grid-column: 1 / 3; /* span 2 columns */
+        grid-row: 1 / 3; /* span 2 rows */
+         background: lightseagreen;
+        padding: 20px;
+        color: white;
+        font-size: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid-container">
+      <div class="grid-item">2</div>
+      <div class="grid-item">1</div>
+      <div class="grid-item">2</div>
+      <div class="item1">jk</div>
+      <div class="grid-item">1</div>
+      <div class="grid-item">2</div>
+      <div class="grid-item">1</div>
+      <div class="grid-item">2</div>
+      <div class="grid-item">1</div>
+      <div class="grid-item">2</div>
+      <div class="grid-item">1</div>
+      <div class="grid-item">2</div>
+      <div class="grid-item">1</div>
+      <div class="grid-item">2</div>
+    </div>
+  </body>
+</html>

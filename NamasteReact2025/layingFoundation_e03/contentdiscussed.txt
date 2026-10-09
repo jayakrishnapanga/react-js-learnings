@@ -1,0 +1,47 @@
+what is jsx ?
+is jsx part of react?
+is jsx is html inside the javascirpt?
+jsx is  html like or xml like syntax but it is different from both of that
+how can you write jsx code in multiple lines (using () parentheiss)
+how jsx prevents cross site scripting attacks?
+is jsx code is valid javascirpt code?
+what is babel?
+what is use of it?
+https://babeljs.io/  visit this site you will understand things 
+
+Everything is a component in react 
+react components
+two types 1. Class based components(the old way of writing code)
+          2. Functional components(new)
+
+if you are creating any functionalbased component you have to name it with the 
+capital letter
+
+what is fcuntional component?
+ if a function return some piece of jsx code is called fucntional component 
+ it is a normal javascript function that returns the piece of jsx code or react element
+
+what is component composition?
+ parent component in that you have one or many child components will be their is called component composition
+
+how can we render funcitonal component?
+how can we render a react element?
+how can we write the some javascript inside the functional component? (using {})
+how can we add react element inside functional component?
+how can we add react element inside a react element?
+how can we add functional component inside a react element?
+<Title/> and <Title> <Title/> both are asme or not ?
+can i call this <Title> component like this
+{Title()} does it work or not?
+
+<Title/> and <Title> <Title/> , {Title()} these 3 things are same 
+
+
+what makes your react webapp more readable?
+reason we are using jsx 
+what makes your react application  more fast
+reason bundler and react virtualdom lot more their explore 
+
+
+React components are regular JavaScript functions, but their names must start with a capital letter or they won’t work!
+reason for that___---- Try to remember how React distinguishes components from the regular HTML tags!

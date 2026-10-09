@@ -1,0 +1,7 @@
+Arrow functions inherit this from the surrounding scope.
+
+In the browser, the global scope is window, so this refers to window.
+
+In Node.js, the module scope is an empty object, so this refers to {}.
+
+Use regular functions if you want this to refer to the object the method is called on.

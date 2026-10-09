@@ -1,0 +1,1 @@
+// JavaScript variables are dynamically typed, meaning their type is determined at runtime.
